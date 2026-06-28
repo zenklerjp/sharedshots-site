@@ -1,0 +1,151 @@
+# SharedShots — Terms of Service
+
+_Last updated: 2026-06-29_
+
+These Terms govern your use of the SharedShots mobile application ("App")
+operated by Jaden Plaatjes ("we", "us"). By using the App you agree to
+them. If you do not agree, do not use the App.
+
+---
+
+## 1. Eligibility
+
+You must be at least 13 years old to use SharedShots. If you are between
+13 and the age of majority where you live, you must have your
+parent's/guardian's permission.
+
+## 2. Your account
+
+You are responsible for keeping your account credentials safe and for
+everything that happens under your account. Notify us at
+**support@sharedshots.app** if you suspect unauthorized access.
+
+## 3. Subscriptions and payments
+
+SharedShots is free to download. Some features ("Premium") require an
+auto-renewing subscription.
+
+- **Billing.** Premium is sold as an auto-renewable subscription through your
+  Apple App Store account. The current price and billing period (e.g. weekly)
+  are shown on the in-app paywall before you purchase.
+- **Auto-renewal.** Your subscription renews automatically at the end of each
+  period unless you cancel at least 24 hours before it ends. Your Apple ID is
+  charged at confirmation of purchase and again at each renewal.
+- **Introductory offers.** Any introductory or discounted price applies only to
+  eligible new subscribers for the stated period, after which it renews at the
+  standard price.
+- **Managing and cancelling.** Manage or cancel any time in the App Store:
+  Settings → your name → Subscriptions. Cancelling stops future renewals; the
+  current paid period stays active until it ends.
+- **Refunds.** Purchases are processed by Apple and are subject to Apple's
+  refund policy. We generally cannot issue refunds directly — request them
+  through Apple.
+- **Free-plan limits.** The free plan currently includes 1 event album, up to 3
+  people per album, up to 50 photos per album, a subset of film filters, and
+  uploads only while you are online. Premium removes these limits. We may change
+  the limits or Premium benefits with reasonable notice.
+- **Payment data.** We never receive or store your card details — Apple handles
+  payment. We receive only your subscription status (active/expired) to unlock
+  Premium features.
+
+## 4. Acceptable use
+
+You agree NOT to use SharedShots to:
+
+- Upload or share content that is illegal, defamatory, harassing,
+  threatening, abusive, hateful, sexually explicit, or that infringes
+  someone else's rights.
+- Upload nudity, child sexual abuse material (CSAM), or any sexual content
+  involving minors. **There is zero tolerance.** We will remove the
+  content, ban the account, and report to relevant authorities.
+- Use the App to stalk, dox, or otherwise harm someone.
+- Impersonate another person or misrepresent your affiliation.
+- Attempt to gain unauthorized access to our systems, other users' data,
+  or run automated scraping/abuse against the App.
+- Distribute malware or attempt to disrupt the service.
+
+We may remove content and terminate accounts that violate these rules,
+with or without notice, at our sole discretion.
+
+## 5. Content ownership and license
+
+You retain ownership of every photo, comment, and other content you upload.
+By uploading, you grant us a worldwide, non-exclusive, royalty-free license
+to store, display, and transmit that content solely for the purpose of
+running the SharedShots service (e.g., showing a photo to other members of
+the event you uploaded it to). This license ends when you delete the
+content or your account.
+
+Content shared inside an event is visible to other members of that event.
+By joining or creating an event, every member consents to having their
+content shown to other members of that event.
+
+**You are solely responsible for the content you upload and for ensuring you
+have the right to share it** (including any rights of people pictured). We do
+not pre-screen user content and are not responsible for content uploaded by
+users. We act only as a neutral host that displays content among the members
+of a private event at their direction.
+
+## 6. Reporting and blocking
+
+If you encounter content or a user that violates these Terms:
+
+- Open the photo → tap **More** → **Report photo**. Your email client
+  will open with the photo identifiers pre-filled. Send it.
+- You can also **Block** an individual user from your device — their
+  content disappears from your galleries.
+
+We aim to review reports within 24 hours. Confirmed violations result in
+content removal and may result in account termination.
+
+## 7. Service availability
+
+SharedShots is provided "as is" and "as available". We may modify or
+discontinue features at any time. We do not guarantee continuous,
+error-free operation, nor that content will be stored without loss — keep
+your own copies of photos that matter to you.
+
+## 8. Account deletion
+
+You can delete your account at any time from Profile → Delete account.
+Deletion removes your profile, the events you own, your memberships, and
+the photos you uploaded. It is irreversible.
+
+We may also terminate your account for breach of these Terms.
+
+## 9. Disclaimers and limitation of liability
+
+To the maximum extent permitted by law:
+- The App is provided without warranties of any kind, express or implied,
+  including merchantability, fitness for a particular purpose, and
+  non-infringement.
+- We are not responsible or liable for user content, for any loss, deletion,
+  exposure, or misuse of photos or other content, or for the conduct of any
+  user (including other event members).
+- We are not liable for indirect, incidental, special, consequential, or
+  punitive damages arising from your use of the App.
+- Our total aggregate liability to you for any claim is limited to the
+  greater of USD 50 or the amount you paid us in the 12 months before the
+  claim.
+
+## 10. Indemnification
+
+You agree to defend, indemnify, and hold us harmless from any claims,
+damages, losses, or expenses (including reasonable legal fees) arising from
+your content, your use of the App, or your violation of these Terms or of
+anyone else's rights.
+
+## 11. Changes
+
+We may update these Terms. Material changes will be announced in the App
+or via email. Continued use after a change indicates acceptance.
+
+## 12. Governing law
+
+These Terms are governed by the laws of South Africa, without regard to
+conflict-of-laws principles. Disputes will be resolved in South African
+courts.
+
+## 13. Contact
+
+Questions or notices: **support@sharedshots.app**
