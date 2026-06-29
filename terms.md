@@ -18,7 +18,7 @@ parent's/guardian's permission.
 
 You are responsible for keeping your account credentials safe and for
 everything that happens under your account. Notify us at
-**support@sharedshots.app** if you suspect unauthorized access.
+**sharedshots.support@gmail.com** if you suspect unauthorized access.
 
 ## 3. Subscriptions and payments
 
@@ -148,4 +148,4 @@ courts.
 
 ## 13. Contact
 
-Questions or notices: **support@sharedshots.app**
+Questions or notices: **sharedshots.support@gmail.com**

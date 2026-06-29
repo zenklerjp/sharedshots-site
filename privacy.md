@@ -7,7 +7,7 @@ This Privacy Policy describes how the SharedShots mobile application (the
 Jaden Plaatjes ("we", "our", "us"). By using the App you agree to the
 practices described here.
 
-If you have questions, email **support@sharedshots.app**.
+If you have questions, email **sharedshots.support@gmail.com**.
 
 ---
 
@@ -72,7 +72,7 @@ You can:
 ## 6. Children
 
 SharedShots is not directed to children under 13. If you believe a child
-has provided us personal information, contact **support@sharedshots.app**
+has provided us personal information, contact **sharedshots.support@gmail.com**
 and we will delete it.
 
 ## 7. International transfers
@@ -96,4 +96,4 @@ or via email. Continued use after a change indicates acceptance.
 
 ## 10. Contact
 
-Privacy questions: **support@sharedshots.app**
+Privacy questions: **sharedshots.support@gmail.com**
