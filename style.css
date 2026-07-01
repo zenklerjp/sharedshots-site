@@ -21,7 +21,7 @@ body {
   font-weight: 800; font-size: 18px; letter-spacing: -0.3px;
   color: var(--text); text-decoration: none; margin-bottom: 28px;
 }
-.dot { width: 26px; height: 26px; border-radius: 8px; background: var(--accent); display: inline-block; }
+.brand-icon { width: 28px; height: 28px; border-radius: 8px; display: inline-block; object-fit: cover; vertical-align: middle; }
 main h1 { font-size: 30px; letter-spacing: -0.5px; margin: 0 0 6px; }
 main h2 { font-size: 20px; margin: 34px 0 10px; }
 main h3 { font-size: 16px; margin: 22px 0 8px; }
