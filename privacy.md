@@ -1,10 +1,10 @@
-# SharedShots — Privacy Policy
+# SharedShots Privacy Policy
 
 _Last updated: 2026-06-29_
 
 This Privacy Policy describes how the SharedShots mobile application (the
-"App") collects, uses, and shares information. SharedShots is operated by
-Jaden Plaatjes ("we", "our", "us"). By using the App you agree to the
+"App") collects, uses, and shares information. In this Policy, "we", "our",
+and "us" refer to SharedShots. By using the App you agree to the
 practices described here.
 
 If you have questions, email **sharedshots.support@gmail.com**.

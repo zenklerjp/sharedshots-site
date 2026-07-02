@@ -1,10 +1,10 @@
-# SharedShots — Terms of Service
+# SharedShots Terms of Service
 
 _Last updated: 2026-06-29_
 
-These Terms govern your use of the SharedShots mobile application ("App")
-operated by Jaden Plaatjes ("we", "us"). By using the App you agree to
-them. If you do not agree, do not use the App.
+These Terms govern your use of the SharedShots mobile application ("App").
+In these Terms, "we" and "us" refer to SharedShots. By using the App you
+agree to them. If you do not agree, do not use the App.
 
 ---
 
