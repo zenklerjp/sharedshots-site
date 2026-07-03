@@ -62,7 +62,7 @@ These are requested via standard iOS prompts. You can revoke either in
 ## 5. Your choices
 
 You can:
-- **Edit your display name** by signing out, deleting your account in-app, and signing up again with the same email. (We're shipping in-app name editing in a future update.)
+- **Edit your display name** in the app: Profile → tap your name. Photos you already shared keep the name they were posted under.
 - **Delete an event you own** — removes that event's data for everyone in it (Settings inside the event → 3-dot menu → Delete event).
 - **Delete an individual photo you uploaded** — from the photo detail screen.
 - **Block a user on your device** — their photos disappear from your gallery (PhotoDetail → More → Block).
