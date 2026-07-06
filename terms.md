@@ -38,13 +38,13 @@ auto-renewing subscription.
   Settings → your name → Subscriptions. Cancelling stops future renewals; the
   current paid period stays active until it ends.
 - **Refunds.** Purchases are processed by Apple and are subject to Apple's
-  refund policy. We generally cannot issue refunds directly — request them
-  through Apple.
+  refund policy. We generally cannot issue refunds directly, so please
+  request them through Apple.
 - **Free-plan limits.** The free plan currently includes 1 event album, up to 3
   people per album, up to 50 photos per album, a subset of film filters, and
   uploads only while you are online. Premium removes these limits. We may change
   the limits or Premium benefits with reasonable notice.
-- **Payment data.** We never receive or store your card details — Apple handles
+- **Payment data.** We never receive or store your card details. Apple handles
   payment. We receive only your subscription status (active/expired) to unlock
   Premium features.
 
@@ -83,7 +83,7 @@ content shown to other members of that event.
 When you share content in an event, you grant every other member of that
 event a licence to view, download, save, and keep that content for their
 own personal use. This is a permission scoped to the members of your
-event — it does **not** place your content in the public domain, and you
+event. It does **not** place your content in the public domain, and you
 keep ownership of it. Because members save copies to their own devices,
 **content that another member has already downloaded cannot be recalled or
 deleted by us even after you delete the original.** Deleting your content
@@ -101,7 +101,7 @@ If you encounter content or a user that violates these Terms:
 
 - Open the photo → tap **More** → **Report photo**. Your email client
   will open with the photo identifiers pre-filled. Send it.
-- You can also **Block** an individual user from your device — their
+- You can also **Block** an individual user from your device, and their
   content disappears from your galleries.
 
 We aim to review reports within 24 hours. Confirmed violations result in
@@ -111,7 +111,7 @@ content removal and may result in account termination.
 
 SharedShots is provided "as is" and "as available". We may modify or
 discontinue features at any time. We do not guarantee continuous,
-error-free operation, nor that content will be stored without loss — keep
+error-free operation, nor that content will be stored without loss, so keep
 your own copies of photos that matter to you.
 
 ## 8. Account deletion

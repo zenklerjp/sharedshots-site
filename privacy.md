@@ -60,8 +60,8 @@ keeping.
 
 ## 4. Permissions the App requests
 
-- **Camera** — to take photos in the App.
-- **Photo library** — only when you tap "From library" to import an existing photo, or "Save to library" on a photo you want to keep locally.
+- **Camera:** to take photos in the App.
+- **Photo library:** only when you tap "From library" to import an existing photo, or "Save to library" on a photo you want to keep locally.
 
 These are requested via standard iOS prompts. You can revoke either in
 **Settings → SharedShots** at any time.
@@ -70,11 +70,11 @@ These are requested via standard iOS prompts. You can revoke either in
 
 You can:
 - **Edit your display name** in the app: Profile → tap your name. Photos you already shared keep the name they were posted under.
-- **Delete an event you own** — removes that event's data for everyone in it (Settings inside the event → 3-dot menu → Delete event).
-- **Delete an individual photo you uploaded** — from the photo detail screen.
-- **Block a user on your device** — their photos disappear from your gallery (PhotoDetail → More → Block).
-- **Report a photo** — emails our support address with the photo identifiers (PhotoDetail → More → Report photo).
-- **Delete your entire account** — Profile → Delete account. Irreversible.
+- **Delete an event you own:** removes that event's data for everyone in it (Settings inside the event → 3-dot menu → Delete event).
+- **Delete an individual photo you uploaded:** from the photo detail screen.
+- **Block a user on your device:** their photos disappear from your gallery (PhotoDetail → More → Block).
+- **Report a photo:** emails our support address with the photo identifiers (PhotoDetail → More → Report photo).
+- **Delete your entire account:** Profile → Delete account. Irreversible.
 
 ## 6. Children
 
