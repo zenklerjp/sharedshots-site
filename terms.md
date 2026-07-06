@@ -1,6 +1,6 @@
 # SharedShots Terms of Service
 
-_Last updated: 2026-06-29_
+_Last updated: 2026-07-06_
 
 These Terms govern your use of the SharedShots mobile application ("App").
 In these Terms, "we" and "us" refer to SharedShots. By using the App you
@@ -80,6 +80,15 @@ Content shared inside an event is visible to other members of that event.
 By joining or creating an event, every member consents to having their
 content shown to other members of that event.
 
+When you share content in an event, you grant every other member of that
+event a licence to view, download, save, and keep that content for their
+own personal use. This is a permission scoped to the members of your
+event — it does **not** place your content in the public domain, and you
+keep ownership of it. Because members save copies to their own devices,
+**content that another member has already downloaded cannot be recalled or
+deleted by us even after you delete the original.** Deleting your content
+removes it from the App, not from copies others have already saved.
+
 **You are solely responsible for the content you upload and for ensuring you
 have the right to share it** (including any rights of people pictured). We do
 not pre-screen user content and are not responsible for content uploaded by
@@ -134,6 +143,13 @@ You agree to defend, indemnify, and hold us harmless from any claims,
 damages, losses, or expenses (including reasonable legal fees) arising from
 your content, your use of the App, or your violation of these Terms or of
 anyone else's rights.
+
+This includes any claim arising from the unauthorised use, upload,
+download, copying, or distribution of content by you or by any other user,
+and from any content you upload that you did not have the right to share.
+SharedShots and its developer are not liable for, and are held harmless
+from, any such unauthorised use, upload, or download of content shared on
+the platform.
 
 ## 11. Changes
 

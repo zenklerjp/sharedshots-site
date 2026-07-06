@@ -1,6 +1,6 @@
 # SharedShots Privacy Policy
 
-_Last updated: 2026-06-29_
+_Last updated: 2026-07-06_
 
 This Privacy Policy describes how the SharedShots mobile application (the
 "App") collects, uses, and shares information. In this Policy, "we", "our",
@@ -50,6 +50,13 @@ Photos in an event are visible to every member of that event. Members are
 people who joined using the event's 6-character code (which is only ever
 shared by you or another member). Photos are **not** visible to anyone
 outside the event, and we never publish them.
+
+Because the App lets members save photos to their own device, any member
+of an event can download and keep a copy of the photos shared in it.
+Copies that a member has saved to their own device are outside our control
+and remain with that member even if you later delete the original. Only
+share content you are comfortable with the other members of your event
+keeping.
 
 ## 4. Permissions the App requests
 
