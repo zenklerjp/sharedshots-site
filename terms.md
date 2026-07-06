@@ -41,9 +41,10 @@ auto-renewing subscription.
   refund policy. We generally cannot issue refunds directly, so please
   request them through Apple.
 - **Free-plan limits.** The free plan currently includes 1 event album, up to 3
-  people per album, up to 50 photos per album, a subset of film filters, and
-  uploads only while you are online. Premium removes these limits. We may change
-  the limits or Premium benefits with reasonable notice.
+  people per album, up to 30 photos per album, a subset of film filters, and
+  uploads only while you are online. Photos download in HD on every plan,
+  including free. Premium removes the limits above. We may change the limits or
+  Premium benefits with reasonable notice.
 - **Payment data.** We never receive or store your card details. Apple handles
   payment. We receive only your subscription status (active/expired) to unlock
   Premium features.
