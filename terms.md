@@ -20,14 +20,18 @@ You are responsible for keeping your account credentials safe and for
 everything that happens under your account. Notify us at
 **sharedshots.support@gmail.com** if you suspect unauthorized access.
 
-## 3. Subscriptions and payments
+## 3. Purchases and payments
 
-SharedShots is free to download. Some features ("Premium") require an
-auto-renewing subscription.
+SharedShots is free to download, and viewing, joining, and taking part in an
+album is always free for every member. Two optional purchases exist:
 
+- **Event Pass.** A one-time in-app purchase that permanently unlocks a
+  single album: unlimited photos for every member of that album, with nothing
+  for the other members to pay. It is not a subscription, does not renew, and
+  once redeemed onto an album it cannot be moved to a different album.
 - **Billing.** Premium is sold as an auto-renewable subscription through your
-  Apple App Store account. The current price and billing period (e.g. weekly)
-  are shown on the in-app paywall before you purchase.
+  Apple App Store account. The current price and billing period are shown on
+  the in-app paywall before you purchase.
 - **Auto-renewal.** Your subscription renews automatically at the end of each
   period unless you cancel at least 24 hours before it ends. Your Apple ID is
   charged at confirmation of purchase and again at each renewal.
@@ -40,14 +44,14 @@ auto-renewing subscription.
 - **Refunds.** Purchases are processed by Apple and are subject to Apple's
   refund policy. We generally cannot issue refunds directly, so please
   request them through Apple.
-- **Free-plan limits.** The free plan currently includes 1 event album, up to 3
-  people per album, up to 30 photos per album, a subset of film filters, and
-  uploads only while you are online. Photos download in HD on every plan,
-  including free. Premium removes the limits above. We may change the limits or
-  Premium benefits with reasonable notice.
+- **Free-plan limits.** The free plan currently includes hosting 1 album at a
+  time with up to 30 photos, joining an unlimited number of albums, unlimited
+  people in every album, a subset of film filters, and uploads only while you
+  are online. Photos download in HD on every plan, including free. An Event
+  Pass removes the photo limit for one album; Premium removes it for every
+  album you host. We may change the limits or benefits with reasonable notice.
 - **Payment data.** We never receive or store your card details. Apple handles
-  payment. We receive only your subscription status (active/expired) to unlock
-  Premium features.
+  payment. We receive only your purchase status to unlock what you bought.
 
 ## 4. Acceptable use
 
