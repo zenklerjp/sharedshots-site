@@ -4,7 +4,7 @@ _Last updated: 2026-07-06_
 
 This Privacy Policy describes how the SharedShots mobile application (the
 "App") collects, uses, and shares information. In this Policy, "the user"
-means the person using the App, and "the SharedShots team" means the operator
+means the person using the App, and "the developer" means the operator
 and provider of SharedShots. By using the App the user agrees to the
 practices described here.
 
@@ -14,7 +14,7 @@ Questions can be emailed to **sharedshots.support@gmail.com**.
 
 ## 1. What is collected
 
-The SharedShots team collects the minimum information needed to make
+The developer collects the minimum information needed to make
 shared-event photo albums work.
 
 | Category | Examples | Why it is needed |
@@ -29,7 +29,7 @@ shared-event photo albums work.
 The App does not collect: precise location, contacts, advertising IDs,
 microphone audio, browsing history, or biometric data.
 
-The SharedShots team does not sell, rent, or trade personal information to
+The developer does not sell, rent, or trade personal information to
 anyone.
 
 ## 2. How data is handled
@@ -56,12 +56,12 @@ Photos in an event are visible to every member of that event. Members are
 people who joined using the event's 6-character code (which is only ever
 shared by the user or another member). The host can require approval before
 someone joins, and can remove a member at any time. Photos are **not**
-visible to anyone outside the event, and the SharedShots team never publishes
+visible to anyone outside the event, and the developer never publishes
 them.
 
 Because the App lets members save photos to their own device, any member of
 an event can download and keep a copy of the photos shared in it. Copies that
-a member has saved to their own device are outside the SharedShots team's
+a member has saved to their own device are outside the developer's
 control and remain with that member even if the original is later deleted.
 Users should only share content they are comfortable with the other members
 of their event keeping.
@@ -109,7 +109,7 @@ being transferred to and processed in those regions.
 Data in transit is protected with TLS, and the storage provider applies
 at-rest encryption. No system is perfectly secure, and no guarantee of
 security is made; if a breach affecting the user's account is detected, the
-SharedShots team will notify the user by email within a reasonable time.
+developer will notify the user by email within a reasonable time.
 
 ## 9. Changes
 

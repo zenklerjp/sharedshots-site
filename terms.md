@@ -4,7 +4,7 @@ _Last updated: 2026-07-06_
 
 These Terms govern the use of the SharedShots mobile application (the "App").
 In these Terms, "the user" means the person who downloads, registers for, or
-uses the App, and "the SharedShots team" (also "the developer") means the
+uses the App, and "the developer" means the
 operator and provider of SharedShots. By using the App the user agrees to
 these Terms. A user who does not agree must not use the App.
 
@@ -20,7 +20,7 @@ guardian's permission.
 
 The user is responsible for keeping their account credentials safe and for
 everything that happens under their account. The user should notify the
-SharedShots team at **sharedshots.support@gmail.com** if they suspect
+developer at **sharedshots.support@gmail.com** if they suspect
 unauthorized access.
 
 ## 3. Purchases and payments
@@ -46,17 +46,17 @@ album is always free for every member. Two optional purchases exist:
   Subscriptions. Cancelling stops future renewals; the current paid period
   stays active until it ends.
 - **Refunds.** Purchases are processed by Apple and are subject to Apple's
-  refund policy. The SharedShots team generally cannot issue refunds
+  refund policy. The developer generally cannot issue refunds
   directly; refund requests should be made through Apple.
 - **Free-plan limits.** The free plan currently includes hosting 1 album at a
   time with up to 30 photos, joining an unlimited number of albums, unlimited
   people in every album, a subset of film filters, and uploads only while the
   user is online. Photos download in HD on every plan, including free. An
   Event Pass removes the photo limit for one album; Premium removes it for
-  every album the user hosts. The SharedShots team may change the limits or
+  every album the user hosts. The developer may change the limits or
   benefits with reasonable notice.
-- **Payment data.** The SharedShots team never receives or stores card
-  details. Apple handles payment. The SharedShots team receives only the
+- **Payment data.** The developer never receives or stores card
+  details. Apple handles payment. The developer receives only the
   user's purchase status in order to unlock what was bought.
 
 ## 4. Acceptable use
@@ -67,7 +67,7 @@ The user agrees NOT to use SharedShots to:
   threatening, abusive, hateful, sexually explicit, or that infringes
   someone else's rights.
 - Upload nudity, child sexual abuse material (CSAM), or any sexual content
-  involving minors. **There is zero tolerance.** The SharedShots team will
+  involving minors. **There is zero tolerance.** The developer will
   remove the content, ban the account, and report to relevant authorities.
 - Stalk, dox, or otherwise harm someone.
 - Impersonate another person or misrepresent an affiliation.
@@ -75,7 +75,7 @@ The user agrees NOT to use SharedShots to:
   data, or run automated scraping or abuse against the App.
 - Distribute malware or attempt to disrupt the service.
 
-The SharedShots team may remove content and terminate accounts that violate
+The developer may remove content and terminate accounts that violate
 these rules, with or without notice, at its sole discretion.
 
 ## 5. Albums, membership, and moderation
@@ -89,7 +89,7 @@ device remain with them.
 ## 6. Content ownership and license
 
 The user retains ownership of every photo, comment, and other content they
-upload. By uploading, the user grants the SharedShots team a worldwide,
+upload. By uploading, the user grants the developer a worldwide,
 non-exclusive, royalty-free license to store, display, and transmit that
 content solely for the purpose of running the SharedShots service (for
 example, showing a photo to other members of the event it was uploaded to).
@@ -105,14 +105,14 @@ their own personal use. This is a permission scoped to the members of the
 user's event. It does **not** place the content in the public domain, and the
 user keeps ownership of it. Because members save copies to their own devices,
 **content that another member has already downloaded cannot be recalled or
-deleted by the SharedShots team even after the user deletes the original.**
+deleted by the developer even after the user deletes the original.**
 Deleting content removes it from the App, not from copies others have already
 saved.
 
 **The user is solely responsible for the content they upload and for ensuring
 they have the right to share it** (including any rights of people pictured).
-The SharedShots team does not pre-screen user content and is not responsible
-for content uploaded by users. The SharedShots team acts only as a neutral
+The developer does not pre-screen user content and is not responsible
+for content uploaded by users. The developer acts only as a neutral
 host that displays content among the members of a private event at their
 direction.
 
@@ -125,22 +125,22 @@ A user who encounters content or another user that violates these Terms can:
 - **Block** an individual user from their device, and that person's content
   disappears from the user's galleries.
 
-The SharedShots team aims to review reports within 24 hours. Confirmed
+The developer aims to review reports within 24 hours. Confirmed
 violations result in content removal and may result in account termination.
 
 ## 8. Service availability. Not a storage or backup service
 
-SharedShots is provided "as is" and "as available". The SharedShots team may
+SharedShots is provided "as is" and "as available". The developer may
 modify or discontinue features at any time.
 
 **SharedShots is a tool for sharing photos around an event. It is not a
 photo-storage, archival, or backup service and must not be relied on as one.**
-The SharedShots team does not guarantee continuous, error-free operation, nor
+The developer does not guarantee continuous, error-free operation, nor
 that content will be retained or remain retrievable for any period of time.
 Content may become unavailable through outages, technical failure, account or
 album deletion, enforcement of these Terms, or discontinuation of the
 service. **The user must keep their own original copies of any photos that
-matter to them.** The SharedShots team accepts no liability for lost,
+matter to them.** The developer accepts no liability for lost,
 corrupted, or unavailable content.
 
 ## 9. Account deletion
@@ -149,7 +149,7 @@ The user can delete their account at any time in the App (Profile, then
 Delete account). Deletion removes the user's profile, the events they own,
 their memberships, and the photos they uploaded. It is irreversible.
 
-The SharedShots team may also terminate an account for breach of these Terms.
+The developer may also terminate an account for breach of these Terms.
 
 ## 10. Disclaimers and limitation of liability
 
@@ -158,19 +158,18 @@ To the maximum extent permitted by law:
 - The App is provided without warranties of any kind, express or implied,
   including merchantability, fitness for a particular purpose, and
   non-infringement.
-- The SharedShots team is not responsible or liable for user content, for any
+- The developer is not responsible or liable for user content, for any
   loss, deletion, exposure, or misuse of photos or other content, or for the
   conduct of any user (including other event members).
-- The SharedShots team is not liable for indirect, incidental, special,
+- The developer is not liable for indirect, incidental, special,
   consequential, or punitive damages arising from use of the App.
-- The SharedShots team's total aggregate liability for any claim is limited
+- The developer's total aggregate liability for any claim is limited
   to the greater of USD 50 or the amount the user paid to the SharedShots
   team in the 12 months before the claim.
 
 ## 11. Indemnification
 
-The user agrees to defend, indemnify, and hold the SharedShots team and the
-developer harmless from any claims, damages, losses, or expenses (including
+The user agrees to defend, indemnify, and hold the developer harmless from any claims, damages, losses, or expenses (including
 reasonable legal fees) arising from the user's content, the user's use of the
 App, or the user's violation of these Terms or of anyone else's rights.
 
@@ -180,12 +179,19 @@ from any content the user uploads without the right to share it. SharedShots
 and its developer are not liable for, and are held harmless from, any such
 unauthorised use, upload, or download of content shared on the platform.
 
-## 12. Changes
+## 12. Governing law
 
-The SharedShots team may update these Terms. Material changes will be
+These Terms, and any dispute arising from them or from use of the App, are
+governed by the laws of the Republic of South Africa, without regard to
+conflict-of-law rules. Nothing in this section takes away protections granted
+to consumers by mandatory laws of the country where the user lives.
+
+## 13. Changes
+
+The developer may update these Terms. Material changes will be
 announced in the App or by email. Continued use after a change indicates
 acceptance.
 
-## 13. Contact
+## 14. Contact
 
 Questions about these Terms: **sharedshots.support@gmail.com**
