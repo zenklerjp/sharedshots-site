@@ -29,9 +29,10 @@ SharedShots is free to download, and viewing, joining, and taking part in an
 album is always free for every member. Two optional purchases exist:
 
 - **Event Pass.** A one-time in-app purchase that permanently unlocks a
-  single album: unlimited photos for every member of that album, with nothing
-  for the other members to pay. It is not a subscription, does not renew, and
-  once redeemed onto an album it cannot be moved to a different album.
+  single album: unlimited photos, and every member of that album, free or
+  Premium, sees every photo, with nothing for the other members to pay. It is
+  not a subscription, does not renew, and once redeemed onto an album it
+  cannot be moved to a different album.
 - **Billing.** Premium is sold as an auto-renewable subscription through the
   user's Apple App Store account. The current price and billing period are
   shown on the in-app paywall before purchase.
@@ -51,10 +52,12 @@ album is always free for every member. Two optional purchases exist:
 - **Free-plan limits.** The free plan currently includes hosting 1 album at a
   time with up to 30 photos, joining an unlimited number of albums, unlimited
   people in every album, a subset of film filters, and uploads only while the
-  user is online. Photos download in HD on every plan, including free. An
-  Event Pass removes the photo limit for one album; Premium removes it for
-  every album the user hosts. The developer may change the limits or
-  benefits with reasonable notice.
+  user is online. A free member of any album sees its first 30 photos unless
+  that album has an Event Pass. Photos download in HD on every plan,
+  including free. An Event Pass opens one album fully for everyone in it;
+  Premium removes the hosting and upload limits for the user's own albums and
+  lets the user see every photo in every album they are in. The developer may
+  change the limits or benefits with reasonable notice.
 - **Payment data.** The developer never receives or stores card
   details. Apple handles payment. The developer receives only the
   user's purchase status in order to unlock what was bought.
