@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Join a SharedShots album</title>
+<link rel="icon" href="./icon.png" />
+<style>
+  :root { --bg:#F3EBDF; --card:#FBF6EE; --text:#2E2836; --dim:#6E6678; --accent:#0FA39B; --border:#E6DCCB; }
+  * { box-sizing: border-box; }
+  html,body { margin:0; height:100%; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .card {
+    background: var(--card); border:1px solid var(--border); border-radius:22px;
+    max-width:420px; width:100%; padding:32px 26px; text-align:center;
+    box-shadow: 0 10px 40px rgba(46,40,54,0.08);
+  }
+  .logo { width:56px; height:56px; border-radius:16px; display:inline-flex; align-items:center; justify-content:center;
+    background: rgba(15,163,155,0.12); margin-bottom:18px; }
+  .logo svg { width:30px; height:30px; }
+  h1 { font-size:24px; margin:0 0 6px; letter-spacing:-0.3px; }
+  p { color: var(--dim); margin:0 0 22px; line-height:1.5; font-size:15px; }
+  .code { display:inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:26px; letter-spacing:6px; font-weight:700; background: var(--bg);
+    border:1px solid var(--border); border-radius:12px; padding:12px 20px; margin-bottom:24px; }
+  .btn { display:block; width:100%; text-decoration:none; border-radius:14px; padding:16px;
+    font-size:17px; font-weight:600; margin-bottom:12px; }
+  .primary { background: var(--accent); color:#fff; }
+  .secondary { background: transparent; color: var(--accent); border:1px solid var(--accent); }
+  .hint { font-size:13px; color: var(--dim); margin-top:8px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0FA39B" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="#0FA39B"/></svg>
+    </span>
+    <h1>Join the album</h1>
+    <p id="sub">Opening SharedShots…</p>
+    <div class="code" id="code">------</div>
+    <a class="btn primary" id="open" href="#">Open in SharedShots</a>
+    <a class="btn secondary" id="store" href="https://apps.apple.com/app/id6786014182">Get SharedShots</a>
+    <div class="hint">If the app is installed, it opens to join this album (or ask the host to let you in if it's private). Otherwise, download it, sign in, and enter the code above.</div>
+  </div>
+<script>
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var code = (params.get('c') || params.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    var appUrl = 'sharedshots://join/' + code;
+    if (code) {
+      document.getElementById('code').textContent = code;
+      document.getElementById('open').setAttribute('href', appUrl);
+      // Try to hand off to the app immediately (works if installed).
+      setTimeout(function () { window.location.href = appUrl; }, 400);
+    } else {
+      document.getElementById('sub').textContent = 'This link is missing an album code.';
+      document.getElementById('code').style.display = 'none';
+      document.getElementById('open').style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>

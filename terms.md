@@ -49,15 +49,22 @@ album is always free for every member. Two optional purchases exist:
 - **Refunds.** Purchases are processed by Apple and are subject to Apple's
   refund policy. The developer generally cannot issue refunds
   directly; refund requests should be made through Apple.
-- **Free-plan limits.** The free plan currently includes hosting 1 album at a
-  time with up to 30 photos, joining an unlimited number of albums, unlimited
+- **Free-plan limits.** The free plan currently includes being in up to 3
+  albums at a time (joined or hosted), up to 50 photos per album, unlimited
   people in every album, a subset of film filters, and uploads only while the
-  user is online. A free member of any album sees its first 30 photos unless
-  that album has an Event Pass. Photos download in HD on every plan,
-  including free. An Event Pass opens one album fully for everyone in it;
-  Premium removes the hosting and upload limits for the user's own albums and
-  lets the user see every photo in every album they are in. The developer may
-  change the limits or benefits with reasonable notice.
+  user is online. A free member of any album sees its first 50 photos unless
+  that album has an Event Pass. Photos download in HD on every plan, including
+  free. An Event Pass opens one album fully for everyone in it; Premium gives
+  unlimited albums and unlimited photos in the user's own albums, and lets the
+  user see every photo in every album they are in. The developer may change the
+  limits or benefits with reasonable notice.
+- **Storage is limited; not a backup service.** Each account may hold only a
+  limited number of photos across all its albums at once (currently 150 on the
+  free plan and a higher fair-use limit on Premium). SharedShots is a tool for
+  sharing event photos, not cloud storage or backup. **Users must download and
+  keep their own copies of any photos they want to keep.** Photos may be
+  removed once an account is over its limit or an album is deleted, and the
+  developer is not responsible for content the user did not save elsewhere.
 - **Payment data.** The developer never receives or stores card
   details. Apple handles payment. The developer receives only the
   user's purchase status in order to unlock what was bought.
