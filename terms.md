@@ -58,13 +58,17 @@ album is always free for every member. Two optional purchases exist:
   unlimited albums and unlimited photos in the user's own albums, and lets the
   user see every photo in every album they are in. The developer may change the
   limits or benefits with reasonable notice.
-- **Storage is limited; not a backup service.** Each account may hold only a
-  limited number of photos across all its albums at once (currently 150 on the
-  free plan and a higher fair-use limit on Premium). SharedShots is a tool for
-  sharing event photos, not cloud storage or backup. **Users must download and
-  keep their own copies of any photos they want to keep.** Photos may be
-  removed once an account is over its limit or an album is deleted, and the
-  developer is not responsible for content the user did not save elsewhere.
+- **Albums are temporary and are automatically deleted.** SharedShots is a
+  tool for sharing photos around an event, not cloud storage or backup. Every
+  album has a limited lifetime and is **permanently and automatically deleted**
+  when it ends, along with all photos in it: currently 3 months after a free
+  album is created, and 12 months for an album that has an Event Pass or a
+  Premium host. The App shows a countdown and reminds members before deletion,
+  but deletion cannot be undone and deleted content cannot be recovered.
+  **Users must download and keep their own copies of any photos they want to
+  keep, before the album is deleted.** The developer is not responsible for
+  content the user did not save elsewhere, and may change these lifetimes with
+  reasonable notice.
 - **Payment data.** The developer never receives or stores card
   details. Apple handles payment. The developer receives only the
   user's purchase status in order to unlock what was bought.
@@ -145,13 +149,15 @@ modify or discontinue features at any time.
 
 **SharedShots is a tool for sharing photos around an event. It is not a
 photo-storage, archival, or backup service and must not be relied on as one.**
-The developer does not guarantee continuous, error-free operation, nor
-that content will be retained or remain retrievable for any period of time.
-Content may become unavailable through outages, technical failure, account or
-album deletion, enforcement of these Terms, or discontinuation of the
-service. **The user must keep their own original copies of any photos that
-matter to them.** The developer accepts no liability for lost,
-corrupted, or unavailable content.
+Albums are temporary and are automatically and permanently deleted at the end
+of their lifetime (see section 3), and content may also become unavailable
+through outages, technical failure, account or album deletion, enforcement of
+these Terms, or discontinuation of the service. The developer does not
+guarantee continuous, error-free operation, nor that content will be retained
+or remain retrievable for any period of time. **The user must download and keep
+their own original copies of any photos that matter to them, before an album is
+deleted.** The developer accepts no liability for lost, corrupted, or
+unavailable content.
 
 ## 9. Account deletion
 
