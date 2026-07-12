@@ -30,13 +30,14 @@ album is always free for every member. Two optional purchases exist:
 
 - **Event Pass.** A one-time in-app purchase that unlocks a single album for
   every member of it, free or Premium, with nothing for the other members to
-  pay. Passes come in tiers sized to the event; each tier includes a stated
-  number of people, photos, and other media for that album, shown before
-  purchase. A larger tier can be bought later to increase those allowances,
-  and buying a pass for an album that already has one extends that album's
-  lifetime by a further 12 months. It is not a subscription, does not
-  auto-renew, and once redeemed onto an album it cannot be moved to a
-  different album.
+  pay. The price is calculated from the exact allowances the buyer selects
+  (people, photos, video, voice notes, photo quality, album lifetime, and
+  whether the "Made with SharedShots" notice is removed), all shown before
+  purchase. The buyer chooses an album lifetime of 3 or 6 months, and buying
+  a further pass on the same album extends its lifetime by the newly chosen
+  period and never reduces its existing allowances. It is not a
+  subscription, does not auto-renew, and once redeemed onto an album it
+  cannot be moved to a different album.
 - **Split contributions ("chip-ins").** Members of an album may optionally
   split the cost of an Event Pass. Each chip-in is its own one-time in-app
   purchase that adds credit toward that album's pass; the album unlocks
@@ -77,8 +78,9 @@ album is always free for every member. Two optional purchases exist:
   tool for sharing photos around an event, not cloud storage or backup. Every
   album has a limited lifetime and is **permanently and automatically deleted**
   when it ends, along with all photos in it: currently 3 months after a free
-  album is created, and 12 months for an album that has an Event Pass or a
-  Premium host. The App shows a countdown and reminds members before deletion,
+  album is created, the chosen 3 or 6 months for an album with an Event Pass
+  (extendable by renewing), and 12 months for an album with a Premium host.
+  The App shows a countdown and reminds members before deletion,
   but deletion cannot be undone and deleted content cannot be recovered.
   **Users must download and keep their own copies of any photos they want to
   keep, before the album is deleted.** The developer is not responsible for
