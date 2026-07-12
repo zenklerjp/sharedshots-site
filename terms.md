@@ -28,11 +28,13 @@ unauthorized access.
 SharedShots is free to download, and viewing, joining, and taking part in an
 album is always free for every member. Two optional purchases exist:
 
-- **Event Pass.** A one-time in-app purchase that permanently unlocks a
-  single album: unlimited photos, and every member of that album, free or
-  Premium, sees every photo, with nothing for the other members to pay. It is
-  not a subscription, does not renew, and once redeemed onto an album it
-  cannot be moved to a different album.
+- **Event Pass.** A one-time in-app purchase that unlocks a single album for
+  every member of it, free or Premium, with nothing for the other members to
+  pay. Passes come in tiers sized to the event; each tier includes a stated
+  number of people, photos, and other media for that album, shown before
+  purchase, and a larger tier can be bought later to increase those
+  allowances. It is not a subscription, does not renew, and once redeemed
+  onto an album it cannot be moved to a different album.
 - **Billing.** Premium is sold as an auto-renewable subscription through the
   user's Apple App Store account. The current price and billing period are
   shown on the in-app paywall before purchase.
@@ -50,14 +52,16 @@ album is always free for every member. Two optional purchases exist:
   refund policy. The developer generally cannot issue refunds
   directly; refund requests should be made through Apple.
 - **Free-plan limits.** The free plan currently includes being in up to 3
-  albums at a time (joined or hosted), up to 50 photos per album, unlimited
-  people in every album, a subset of film filters, and uploads only while the
+  albums at a time (joined or hosted), up to 50 photos per album, up to 10
+  people per album, a subset of film filters, and uploads only while the
   user is online. A free member of any album sees its first 50 photos unless
   that album has an Event Pass. Photos download in HD on every plan, including
-  free. An Event Pass opens one album fully for everyone in it; Premium gives
-  unlimited albums and unlimited photos in the user's own albums, and lets the
-  user see every photo in every album they are in. The developer may change the
-  limits or benefits with reasonable notice.
+  free. Free albums display a small "Made with SharedShots" notice, which is
+  removed when the album has an Event Pass or a Premium host. An Event Pass
+  opens one album for everyone in it, with the people and photo allowances of
+  its tier; Premium gives unlimited albums and unlimited photos in the user's
+  own albums, and lets the user see every photo in every album they are in.
+  The developer may change the limits or benefits with reasonable notice.
 - **Albums are temporary and are automatically deleted.** SharedShots is a
   tool for sharing photos around an event, not cloud storage or backup. Every
   album has a limited lifetime and is **permanently and automatically deleted**
