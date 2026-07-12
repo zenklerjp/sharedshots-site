@@ -32,9 +32,20 @@ album is always free for every member. Two optional purchases exist:
   every member of it, free or Premium, with nothing for the other members to
   pay. Passes come in tiers sized to the event; each tier includes a stated
   number of people, photos, and other media for that album, shown before
-  purchase, and a larger tier can be bought later to increase those
-  allowances. It is not a subscription, does not renew, and once redeemed
-  onto an album it cannot be moved to a different album.
+  purchase. A larger tier can be bought later to increase those allowances,
+  and buying a pass for an album that already has one extends that album's
+  lifetime by a further 12 months. It is not a subscription, does not
+  auto-renew, and once redeemed onto an album it cannot be moved to a
+  different album.
+- **Split contributions ("chip-ins").** Members of an album may optionally
+  split the cost of an Event Pass. Each chip-in is its own one-time in-app
+  purchase that adds credit toward that album's pass; the album unlocks
+  automatically when the combined contributions reach the pass price, and
+  until then the album keeps its free-plan limits. A member's unspent
+  contribution to an open split can be moved back to their chip-in credit
+  inside the App and used toward any other split, but chip-in purchases are
+  processed by Apple and refunds outside the App are subject to Apple's
+  refund policy.
 - **Billing.** Premium is sold as an auto-renewable subscription through the
   user's Apple App Store account. The current price and billing period are
   shown on the in-app paywall before purchase.
