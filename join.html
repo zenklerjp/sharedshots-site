@@ -43,8 +43,9 @@
     <p id="sub">Opening SharedShots…</p>
     <div class="code" id="code">------</div>
     <a class="btn primary" id="open" href="#">Open in SharedShots</a>
-    <a class="btn secondary" id="store" href="https://apps.apple.com/app/id6786014182">Get SharedShots</a>
-    <div class="hint">If the app is installed, it opens to join this album (or ask the host to let you in if it's private). Otherwise, download it, sign in, and enter the code above.</div>
+    <a class="btn secondary" id="web" href="#">Continue in browser</a>
+    <a class="btn secondary" id="store" href="https://apps.apple.com/app/id6786014182">Get the app</a>
+    <div class="hint">No download needed — you can add your photos straight from the browser. The app adds the retro camera and filters.</div>
   </div>
 <script>
   (function () {
@@ -54,12 +55,17 @@
     if (code) {
       document.getElementById('code').textContent = code;
       document.getElementById('open').setAttribute('href', appUrl);
-      // Try to hand off to the app immediately (works if installed).
-      setTimeout(function () { window.location.href = appUrl; }, 400);
+      document.getElementById('web').setAttribute('href', 'album.html?c=' + code);
+      document.getElementById('sub').textContent =
+        'Add your photos to the shared album.';
+      // Deliberately NO auto-redirect to the app. Bouncing everyone into the
+      // App Store was the drop-off point: most guests never come back. Let them
+      // pick — "Continue in browser" needs no download.
     } else {
       document.getElementById('sub').textContent = 'This link is missing an album code.';
       document.getElementById('code').style.display = 'none';
       document.getElementById('open').style.display = 'none';
+      document.getElementById('web').style.display = 'none';
     }
   })();
 </script>

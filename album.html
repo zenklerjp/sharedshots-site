@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>SharedShots album</title>
+<link rel="icon" href="./icon.png" />
+<style>
+  :root {
+    --bg:#F3EBDF; --card:#FBF6EE; --text:#2E2836; --dim:#6E6678;
+    --accent:#0FA39B; --border:#E6DCCB; --danger:#C2453B;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; min-height:100%; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height:1.5;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 20px 16px 120px; }
+
+  /* ---- header ---- */
+  .top { display:flex; align-items:center; gap:10px; padding: 6px 0 18px; }
+  .logo { width:34px; height:34px; border-radius:10px; display:inline-flex; align-items:center;
+          justify-content:center; background: rgba(15,163,155,0.12); flex:none; }
+  .logo svg { width:20px; height:20px; }
+  .brand { font-weight:800; letter-spacing:-0.3px; font-size:16px; }
+  .top .spacer { flex:1; }
+  .getapp { font-size:13px; font-weight:600; color:var(--accent); text-decoration:none;
+            border:1px solid var(--accent); border-radius:999px; padding:7px 13px; white-space:nowrap; }
+
+  /* ---- centered card (join / states) ---- */
+  .center { min-height: 70vh; display:flex; align-items:center; justify-content:center; }
+  .card {
+    background: var(--card); border:1px solid var(--border); border-radius:22px;
+    max-width:420px; width:100%; padding:30px 24px; text-align:center;
+    box-shadow: 0 10px 40px rgba(46,40,54,0.08);
+  }
+  .card h1 { font-size:23px; margin:0 0 8px; letter-spacing:-0.3px; }
+  .card p { color:var(--dim); margin:0 0 20px; font-size:15px; }
+  .code {
+    display:inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:22px; letter-spacing:5px; font-weight:700; background: var(--bg);
+    border:1px solid var(--border); border-radius:12px; padding:10px 18px; margin-bottom:20px;
+  }
+  input[type=text] {
+    width:100%; font-size:16px; padding:14px 16px; border-radius:14px;
+    border:1px solid var(--border); background:#fff; color:var(--text); margin-bottom:14px;
+    font-family:inherit;
+  }
+  input[type=text]:focus { outline:none; border-color:var(--accent); }
+  .btn {
+    display:block; width:100%; border:0; border-radius:14px; padding:15px;
+    font-size:16px; font-weight:600; cursor:pointer; font-family:inherit;
+    background: var(--accent); color:#fff; text-decoration:none; text-align:center;
+  }
+  .btn:disabled { opacity:0.55; cursor:default; }
+  .btn.secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); margin-top:10px; }
+  .err { color:var(--danger); font-size:14px; margin:12px 0 0; min-height:20px; }
+  .muted { font-size:13px; color:var(--dim); margin-top:14px; }
+
+  /* ---- album view ---- */
+  .albumhead { margin-bottom:16px; }
+  .albumhead h1 { font-size:26px; margin:0 0 4px; letter-spacing:-0.4px; word-break:break-word; }
+  .albumhead .meta { color:var(--dim); font-size:14px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap:8px; }
+  .tile {
+    position:relative; aspect-ratio:1; border-radius:12px; overflow:hidden;
+    background:#E9E0D2; border:1px solid var(--border); display:block;
+  }
+  .tile img { width:100%; height:100%; object-fit:cover; display:block; }
+  .tile.pending { display:flex; align-items:center; justify-content:center; }
+  .spinner {
+    width:22px; height:22px; border:2.5px solid rgba(15,163,155,0.25);
+    border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .empty { text-align:center; color:var(--dim); padding:46px 20px; font-size:15px; }
+  .notice {
+    background:rgba(15,163,155,0.09); border:1px solid rgba(15,163,155,0.28);
+    border-radius:14px; padding:13px 15px; font-size:14px; color:var(--text); margin:16px 0;
+  }
+  .notice.warn { background:rgba(194,69,59,0.07); border-color:rgba(194,69,59,0.3); }
+
+  /* ---- sticky add bar ---- */
+  .bar {
+    position:fixed; left:0; right:0; bottom:0; padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--bg) 72%, rgba(243,235,223,0));
+  }
+  .bar .inner { max-width:780px; margin:0 auto; }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0FA39B" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="#0FA39B"/>
+      </svg>
+    </span>
+    <span class="brand">SharedShots</span>
+    <span class="spacer"></span>
+    <a class="getapp" href="https://apps.apple.com/app/id6786014182">Get the app</a>
+  </div>
+
+  <!-- STATE: join -->
+  <section id="joinView" class="center">
+    <div class="card">
+      <h1>Join the album</h1>
+      <p id="joinSub">Add your photos straight from your browser. No download needed.</p>
+      <div class="code" id="codeChip">------</div>
+      <input type="text" id="nameInput" placeholder="Your name" autocomplete="name"
+             maxlength="40" enterkeyhint="go" />
+      <button class="btn" id="joinBtn">Join album</button>
+      <p class="err" id="joinErr"></p>
+      <p class="muted">Your name is shown next to the photos you add.</p>
+    </div>
+  </section>
+
+  <!-- STATE: loading -->
+  <section id="loadingView" class="center hidden">
+    <div class="card">
+      <div class="spinner" style="margin:6px auto 16px"></div>
+      <p style="margin:0">Opening the album…</p>
+    </div>
+  </section>
+
+  <!-- STATE: album -->
+  <section id="albumView" class="hidden">
+    <div class="albumhead">
+      <h1 id="albumName">Album</h1>
+      <div class="meta" id="albumMeta"></div>
+    </div>
+    <div id="albumNotice"></div>
+    <div class="grid" id="grid"></div>
+    <div class="empty hidden" id="emptyState">
+      No photos yet. Be the first to add one.
+    </div>
+  </section>
+
+  <!-- STATE: fatal error -->
+  <section id="errorView" class="center hidden">
+    <div class="card">
+      <h1 id="errTitle">Something went wrong</h1>
+      <p id="errBody">Please try again.</p>
+      <a class="btn secondary" href="https://apps.apple.com/app/id6786014182">Get SharedShots</a>
+    </div>
+  </section>
+</div>
+
+<div class="bar hidden" id="addBar">
+  <div class="inner">
+    <button class="btn" id="addBtn">Add photos</button>
+    <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const SUPABASE_URL = 'https://gyjfcumcyaamudttfbsi.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5amZjdW1jeWFhbXVkdHRmYnNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMTMwMTIsImV4cCI6MjA5NDU4OTAxMn0.HkC89Wf5ObOWiABrQpup9JBu7QHTxWbmYiZVCQq3Hz8';
+const BUCKET = 'event-photos';
+// Mirrors MAX_EDGE in the app (src/services/filterService.ts) so web uploads
+// cost the same storage as app uploads.
+const MAX_EDGE = 3024;
+// Free albums show their first N photos to everyone (same rule as the app).
+const FREE_WINDOW = 50;
+
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const $ = (id) => document.getElementById(id);
+const show = (el) => el.classList.remove('hidden');
+const hide = (el) => el.classList.add('hidden');
+
+const params = new URLSearchParams(location.search);
+const CODE = (params.get('c') || params.get('code') || '')
+  .toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+let eventRow = null;
+let me = null;
+
+// ---------------------------------------------------------------- boot
+if (!CODE) {
+  fatal('This link is missing an album code', 'Ask the host to send the invite link again.');
+} else {
+  $('codeChip').textContent = CODE;
+  // Already joined on this device? Skip straight in.
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) {
+    const saved = localStorage.getItem('ss_name');
+    if (saved) $('nameInput').value = saved;
+    tryResume();
+  }
+}
+
+async function tryResume() {
+  showLoading();
+  try {
+    await joinAndLoad();
+  } catch (e) {
+    // Session exists but isn't a member (or the code changed) — fall back to join.
+    hide($('loadingView'));
+    show($('joinView'));
+  }
+}
+
+// ---------------------------------------------------------------- join
+$('joinBtn').addEventListener('click', doJoin);
+$('nameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') doJoin(); });
+
+async function doJoin() {
+  const name = $('nameInput').value.trim();
+  $('joinErr').textContent = '';
+  if (name.length < 2) {
+    $('joinErr').textContent = 'Please enter your name.';
+    return;
+  }
+  $('joinBtn').disabled = true;
+  try {
+    localStorage.setItem('ss_name', name);
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+      const { error } = await sb.auth.signInAnonymously({
+        options: { data: { display_name: name } },
+      });
+      if (error) throw error;
+    }
+    showLoading();
+    await joinAndLoad();
+  } catch (e) {
+    $('joinBtn').disabled = false;
+    hide($('loadingView'));
+    show($('joinView'));
+    $('joinErr').textContent = friendly(e);
+  }
+}
+
+async function joinAndLoad() {
+  const { data: eventId, error } = await sb.rpc('join_event_by_code', { code: CODE });
+  if (error) throw error;
+  if (!eventId) throw new Error('NOT_FOUND');
+
+  const { data: { user } } = await sb.auth.getUser();
+  me = user;
+
+  const { data: ev, error: evErr } = await sb
+    .from('events')
+    .select('id, name, is_unlocked, photo_count, member_ids, expires_at')
+    .eq('id', eventId)
+    .single();
+  if (evErr) throw evErr;
+  eventRow = ev;
+
+  renderHeader();
+  await loadPhotos();
+  hide($('loadingView'));
+  hide($('joinView'));
+  show($('albumView'));
+  show($('addBar'));
+  // Light polling so other people's uploads appear without a manual refresh.
+  setInterval(() => { loadPhotos().catch(() => {}); }, 20000);
+}
+
+// ---------------------------------------------------------------- render
+function renderHeader() {
+  $('albumName').textContent = eventRow.name || 'Album';
+  const n = eventRow.member_ids ? eventRow.member_ids.length : 0;
+  $('albumMeta').textContent =
+    `${eventRow.photo_count || 0} photo${eventRow.photo_count === 1 ? '' : 's'} · ` +
+    `${n} ${n === 1 ? 'person' : 'people'}`;
+
+  const notice = $('albumNotice');
+  notice.innerHTML = '';
+  if (!eventRow.is_unlocked && (eventRow.photo_count || 0) > FREE_WINDOW) {
+    notice.innerHTML =
+      `<div class="notice">Showing the first ${FREE_WINDOW} photos. ` +
+      `The host can open the whole album for everyone with an Event Pass.</div>`;
+  }
+}
+
+async function loadPhotos() {
+  let q = sb.from('photos')
+    .select('id, download_url, thumbnail_url, uploader_name, created_at, media_type')
+    .eq('event_id', eventRow.id)
+    .order('created_at', { ascending: true });
+  if (!eventRow.is_unlocked) q = q.limit(FREE_WINDOW);
+  const { data, error } = await q;
+  if (error) throw error;
+
+  const grid = $('grid');
+  // Keep any in-flight upload tiles at the end.
+  const pending = Array.from(grid.querySelectorAll('.tile.pending'));
+  grid.innerHTML = '';
+  (data || []).forEach((p) => {
+    const a = document.createElement('a');
+    a.className = 'tile';
+    a.href = p.download_url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    const img = document.createElement('img');
+    img.loading = 'lazy';
+    img.src = p.thumbnail_url || p.download_url;
+    img.alt = p.uploader_name ? `Photo by ${p.uploader_name}` : 'Photo';
+    a.appendChild(img);
+    grid.appendChild(a);
+  });
+  pending.forEach((t) => grid.appendChild(t));
+  $('emptyState').classList.toggle('hidden', (data || []).length > 0 || pending.length > 0);
+}
+
+// ---------------------------------------------------------------- upload
+$('addBtn').addEventListener('click', () => $('fileInput').click());
+$('fileInput').addEventListener('change', async (e) => {
+  const files = Array.from(e.target.files || []);
+  e.target.value = '';
+  if (!files.length) return;
+  $('addBtn').disabled = true;
+  let ok = 0, failed = 0, lastErr = null;
+  for (const file of files) {
+    const tile = addPendingTile();
+    try {
+      await uploadOne(file);
+      ok++;
+    } catch (err) {
+      failed++; lastErr = err;
+    } finally {
+      tile.remove();
+    }
+  }
+  $('addBtn').disabled = false;
+  await refreshEvent();
+  await loadPhotos().catch(() => {});
+  if (failed) {
+    const notice = $('albumNotice');
+    notice.innerHTML =
+      `<div class="notice warn">${failed} photo${failed === 1 ? '' : 's'} couldn't be added. ` +
+      `${escapeHtml(friendly(lastErr))}</div>` + notice.innerHTML;
+  }
+});
+
+function addPendingTile() {
+  const d = document.createElement('div');
+  d.className = 'tile pending';
+  d.innerHTML = '<div class="spinner"></div>';
+  $('grid').appendChild(d);
+  $('emptyState').classList.add('hidden');
+  return d;
+}
+
+async function uploadOne(file) {
+  const { blob, width, height } = await downscale(file);
+  const id = crypto.randomUUID();
+  const path = `events/${eventRow.id}/${id}.jpg`;
+
+  const { error: upErr } = await sb.storage
+    .from(BUCKET)
+    .upload(path, blob, { contentType: 'image/jpeg', upsert: true });
+  if (upErr) throw upErr;
+
+  const { data: pub } = sb.storage.from(BUCKET).getPublicUrl(path);
+
+  const { error: rowErr } = await sb.from('photos').insert({
+    id,
+    event_id: eventRow.id,
+    uploaded_by: me.id,
+    uploader_name: localStorage.getItem('ss_name') || 'Guest',
+    storage_path: path,
+    download_url: pub.publicUrl,
+    filter_used: 'original',
+    file_type: 'image/jpeg',
+    width, height,
+    source: 'library',
+    media_type: 'photo',
+  });
+  if (rowErr) {
+    // Don't leave the bytes behind if the row was rejected (e.g. album full).
+    await sb.storage.from(BUCKET).remove([path]).catch(() => {});
+    throw rowErr;
+  }
+}
+
+/** Resize to MAX_EDGE on the long side and re-encode as JPEG (matches the app). */
+function downscale(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width: w, height: h } = img;
+      const long = Math.max(w, h);
+      if (long > MAX_EDGE) {
+        const s = MAX_EDGE / long;
+        w = Math.round(w * s); h = Math.round(h * s);
+      }
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      c.toBlob(
+        (blob) => blob ? resolve({ blob, width: w, height: h })
+                       : reject(new Error('Could not read that image.')),
+        'image/jpeg', 0.85,
+      );
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Could not read that image.')); };
+    img.src = url;
+  });
+}
+
+async function refreshEvent() {
+  const { data } = await sb.from('events')
+    .select('id, name, is_unlocked, photo_count, member_ids, expires_at')
+    .eq('id', eventRow.id).single();
+  if (data) { eventRow = data; renderHeader(); }
+}
+
+// ---------------------------------------------------------------- helpers
+function showLoading() { hide($('joinView')); show($('loadingView')); }
+
+function fatal(title, body) {
+  hide($('joinView')); hide($('loadingView')); hide($('albumView')); hide($('addBar'));
+  $('errTitle').textContent = title;
+  $('errBody').textContent = body;
+  show($('errorView'));
+}
+
+/** Turn server markers into something a guest can act on. */
+function friendly(e) {
+  const msg = String((e && (e.message || e.error_description)) || e || '');
+  if (/FREE_PHOTO_LIMIT/i.test(msg))
+    return 'This album is full on the free plan. The host can add room with an Event Pass.';
+  if (/PASS_PHOTO_LIMIT/i.test(msg))
+    return 'This album has used every photo on its pass. The host can upgrade it.';
+  if (/FREE_MEMBER_LIMIT/i.test(msg))
+    return 'This album is full — a free album holds up to 5 people. The host can make room with an Event Pass.';
+  if (/PASS_GUEST_LIMIT/i.test(msg))
+    return 'This album is at its guest limit. The host can upgrade the pass to add more people.';
+  if (/requires approval|pending|APPROVAL/i.test(msg))
+    return 'This album is private. Ask the host to let you in, then open this link again.';
+  if (/NOT_FOUND|No such event|invalid/i.test(msg))
+    return 'That album code didn’t match anything. Check the link and try again.';
+  if (/Anonymous sign-ins are disabled/i.test(msg))
+    return 'Guest access isn’t switched on yet. Please open the album in the SharedShots app.';
+  if (/row-level security|permission/i.test(msg))
+    return 'You don’t have access to this album yet.';
+  return 'Something went wrong. Please try again.';
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) =>
+    ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+</script>
+</body>
+</html>
