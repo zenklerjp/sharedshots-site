@@ -5,98 +5,347 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>SharedShots album</title>
 <link rel="icon" href="./icon.png" />
+<meta name="theme-color" content="#F3EBDF" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#100E16" media="(prefers-color-scheme: dark)" />
+<meta name="description" content="Everyone's photos from the night, in one shared album. Add yours straight from the browser." />
+<!-- Album links get pasted into group chats. Without these the preview is a
+     bare URL, which is the difference between a tap and a shrug. -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Join the album on SharedShots" />
+<meta property="og:description" content="Everyone's photos from the night, in one place. Add yours from the browser, no download needed." />
+<meta property="og:image" content="https://sharedshots.app/icon.png" />
+<meta name="twitter:card" content="summary" />
 <style>
+  /* Palette is lifted straight from the iOS app (src/theme/index.ts) so a guest
+     who has the app and a guest who doesn't are looking at the same product.
+     Hex rather than OKLCH for exactly that reason: these have to match, and a
+     conversion that drifts by a hair is worse than a format that doesn't. */
   :root {
-    --bg:#F3EBDF; --card:#FBF6EE; --text:#2E2836; --dim:#6E6678;
-    --accent:#0FA39B; --border:#E6DCCB; --danger:#C2453B;
+    color-scheme: light dark;
+    --bg:#F3EBDF; --raised:#FBF5EC; --card:#FFFFFF; --press:#EADFCF;
+    --text:#2E2836; --dim:#6E6678; --faint:#79718A;
+    /* Three accent roles, not one. The app's teal (#0FA39B) is only 2.6:1 on
+       cream and 3.1:1 under white text, so it stays decorative and the text /
+       fill roles use darker steps of the same hue that clear 4.5:1. */
+    --accent:#0FA39B;
+    --accent-text:#097169;
+    --accent-solid:#0A8078;
+    --accent-ink:#FFFFFF;
+    --accent-wash:rgba(15,163,155,0.12);
+    --border:#E6DCCB; --border-firm:#D8CBB6; --danger:#C2453B;
+    --bar:rgba(243,235,223,0.72);
+    --shadow:0 10px 40px rgba(46,40,54,0.09);
+    --shadow-lift:0 2px 10px rgba(46,40,54,0.07);
+    --tile:#E9E0D2;
+    /* Ease-out-quart. Strong enough that a 180ms move reads as deliberate. */
+    --ease:cubic-bezier(0.165,0.84,0.44,1);
+    --z-bar:20; --z-lightbox:40;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#100E16; --raised:#16141D; --card:#1E1B27; --press:#272332;
+      --text:#F3EFF7; --dim:#A49CB2; --faint:#8D8699;
+      /* On dark the brand teal already clears 4.5:1 everywhere, so all three
+         roles collapse back to one colour. */
+      --accent:#19B7AE;
+      --accent-text:#19B7AE;
+      --accent-solid:#19B7AE;
+      --accent-ink:#06201F;
+      --accent-wash:rgba(25,183,174,0.16);
+      --border:#2A2634; --border-firm:#3A3547; --danger:#E4645A;
+      --bar:rgba(16,14,22,0.72);
+      --shadow:0 10px 40px rgba(0,0,0,0.5);
+      --shadow-lift:0 2px 10px rgba(0,0,0,0.35);
+      --tile:#221E2C;
+    }
+  }
+
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
   html, body { margin:0; min-height:100%; }
   body {
-    background: var(--bg); color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior-y:none;
   }
-  .wrap { max-width: 780px; margin: 0 auto; padding: 20px 16px 120px; }
+  /* The tail only exists to clear the sticky add bar, so it's only reserved
+     once that bar is on screen — otherwise the join card floats high in a
+     column of dead space. */
+  .wrap { max-width:820px; margin:0 auto; padding:16px 14px 24px; }
+  body.in-album .wrap { padding-bottom:128px; }
+
+  /* Keyboard users get a ring; pointer users never see one. */
+  :where(a, button, input, [tabindex]):focus-visible {
+    outline:2px solid var(--accent-text); outline-offset:2px; border-radius:6px;
+  }
 
   /* ---- header ---- */
-  .top { display:flex; align-items:center; gap:10px; padding: 6px 0 18px; }
-  .logo { width:34px; height:34px; border-radius:10px; display:inline-flex; align-items:center;
-          justify-content:center; background: rgba(15,163,155,0.12); flex:none; }
-  .logo svg { width:20px; height:20px; }
-  .brand { font-weight:800; letter-spacing:-0.3px; font-size:16px; }
-  .top .spacer { flex:1; }
-  .getapp { font-size:13px; font-weight:600; color:var(--accent); text-decoration:none;
-            border:1px solid var(--accent); border-radius:999px; padding:7px 13px; white-space:nowrap; }
-
-  /* ---- centered card (join / states) ---- */
-  .center { min-height: 70vh; display:flex; align-items:center; justify-content:center; }
-  .card {
-    background: var(--card); border:1px solid var(--border); border-radius:22px;
-    max-width:420px; width:100%; padding:30px 24px; text-align:center;
-    box-shadow: 0 10px 40px rgba(46,40,54,0.08);
+  .top { display:flex; align-items:center; gap:10px; padding:6px 2px 20px; }
+  .logo {
+    width:32px; height:32px; border-radius:10px; display:inline-flex;
+    align-items:center; justify-content:center; background:var(--accent-wash); flex:none;
   }
-  .card h1 { font-size:23px; margin:0 0 8px; letter-spacing:-0.3px; }
-  .card p { color:var(--dim); margin:0 0 20px; font-size:15px; }
+  .logo svg { width:19px; height:19px; }
+  .brand { font-weight:700; letter-spacing:-0.32px; font-size:15.5px; }
+  .top .spacer { flex:1; }
+  .getapp {
+    font-size:13px; font-weight:600; color:var(--accent-text); text-decoration:none;
+    border:1px solid color-mix(in srgb, var(--accent-text) 45%, transparent);
+    border-radius:999px; padding:7px 14px; white-space:nowrap;
+    transition:background-color 140ms var(--ease), transform 140ms var(--ease);
+  }
+  .getapp:active { transform:scale(0.96); background:var(--accent-wash); }
+  @media (hover:hover) and (pointer:fine) {
+    .getapp:hover { background:var(--accent-wash); }
+  }
+
+  /* ---- centered states (join / loading / error) ---- */
+  .center { min-height:74vh; display:flex; align-items:center; justify-content:center; }
+  .card {
+    background:var(--raised); border:1px solid var(--border); border-radius:24px;
+    max-width:400px; width:100%; padding:32px 26px; text-align:center;
+    box-shadow:var(--shadow);
+  }
+  .card h1 {
+    font-size:24px; margin:0 0 8px; letter-spacing:-0.5px; line-height:1.25;
+    text-wrap:balance;
+  }
+  .card p { color:var(--dim); margin:0 0 22px; font-size:15px; text-wrap:pretty; }
+  .card .crest {
+    width:52px; height:52px; margin:0 auto 16px; border-radius:16px;
+    background:var(--accent-wash); display:flex; align-items:center; justify-content:center;
+  }
+  .card .crest svg { width:26px; height:26px; }
   .code {
-    display:inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size:22px; letter-spacing:5px; font-weight:700; background: var(--bg);
-    border:1px solid var(--border); border-radius:12px; padding:10px 18px; margin-bottom:20px;
+    display:inline-block; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:21px; letter-spacing:6px; font-weight:700; background:var(--bg);
+    border:1px solid var(--border); border-radius:12px;
+    padding:11px 14px 11px 20px; margin-bottom:22px; color:var(--text);
   }
   input[type=text] {
-    width:100%; font-size:16px; padding:14px 16px; border-radius:14px;
-    border:1px solid var(--border); background:#fff; color:var(--text); margin-bottom:14px;
-    font-family:inherit;
+    width:100%; font-size:16px; padding:15px 16px; border-radius:14px;
+    border:1px solid var(--border-firm); background:var(--card); color:var(--text);
+    margin-bottom:14px; font-family:inherit;
+    transition:border-color 140ms var(--ease), box-shadow 140ms var(--ease);
   }
-  input[type=text]:focus { outline:none; border-color:var(--accent); }
+  input[type=text]::placeholder { color:var(--faint); }
+  input[type=text]:focus {
+    outline:none; border-color:var(--accent-text);
+    box-shadow:0 0 0 3px var(--accent-wash);
+  }
   .btn {
-    display:block; width:100%; border:0; border-radius:14px; padding:15px;
+    display:flex; align-items:center; justify-content:center; gap:9px;
+    width:100%; border:0; border-radius:14px; padding:16px;
     font-size:16px; font-weight:600; cursor:pointer; font-family:inherit;
-    background: var(--accent); color:#fff; text-decoration:none; text-align:center;
+    background:var(--accent-solid); color:var(--accent-ink); text-decoration:none;
+    transition:transform 130ms var(--ease), opacity 130ms var(--ease),
+               filter 130ms var(--ease);
   }
-  .btn:disabled { opacity:0.55; cursor:default; }
-  .btn.secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); margin-top:10px; }
-  .err { color:var(--danger); font-size:14px; margin:12px 0 0; min-height:20px; }
+  .btn:active:not(:disabled) { transform:scale(0.975); }
+  @media (hover:hover) and (pointer:fine) {
+    .btn:hover:not(:disabled) { filter:brightness(1.06); }
+  }
+  .btn:disabled { opacity:0.5; cursor:default; }
+  .btn.secondary {
+    background:transparent; color:var(--accent-text);
+    border:1px solid color-mix(in srgb, var(--accent-text) 45%, transparent); margin-top:10px;
+  }
+  /* `.card p` was out-specifying `.err`, so every join failure rendered in the
+     same grey as the helper text below it. Scoped here to actually win.
+     Reserves one line so an appearing error doesn't shove the button around. */
+  .card p.err {
+    color:var(--danger); font-size:14px; margin:10px 0 0;
+    min-height:19px; text-wrap:pretty; font-weight:500;
+  }
   .muted { font-size:13px; color:var(--dim); margin-top:14px; }
 
   /* ---- album view ---- */
-  .albumhead { margin-bottom:16px; }
-  .albumhead h1 { font-size:26px; margin:0 0 4px; letter-spacing:-0.4px; word-break:break-word; }
-  .albumhead .meta { color:var(--dim); font-size:14px; }
-  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap:8px; }
+  .albumhead { margin:2px 2px 18px; }
+  .albumhead h1 {
+    font-size:27px; margin:0 0 3px; letter-spacing:-0.6px; line-height:1.2;
+    word-break:break-word; text-wrap:balance;
+  }
+  .albumhead .meta {
+    color:var(--dim); font-size:14px; font-variant-numeric:tabular-nums;
+  }
+  .grid {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(104px, 1fr)); gap:6px;
+  }
+  @media (min-width:560px) {
+    .grid { grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:8px; }
+  }
   .tile {
-    position:relative; aspect-ratio:1; border-radius:12px; overflow:hidden;
-    background:#E9E0D2; border:1px solid var(--border); display:block;
+    position:relative; aspect-ratio:1; border-radius:11px; overflow:hidden;
+    background:var(--tile); display:block; border:0; padding:0; cursor:pointer;
+    transition:transform 130ms var(--ease);
   }
-  .tile img { width:100%; height:100%; object-fit:cover; display:block; }
-  .tile.pending { display:flex; align-items:center; justify-content:center; }
+  .tile:active { transform:scale(0.97); }
+  .tile img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    /* Photos are the content — they fade in rather than snapping, so a slow
+       connection reveals the album instead of flashing it. */
+    opacity:0; transition:opacity 320ms var(--ease);
+  }
+  .tile img.ready { opacity:1; }
+  /* Entrance is staggered by index, capped so a 50-photo album doesn't take
+     three seconds to finish arriving. */
+  .tile.enter { animation:tileIn 340ms var(--ease) backwards; }
+  @keyframes tileIn {
+    from { opacity:0; transform:scale(0.94) translateY(8px); }
+    to   { opacity:1; transform:none; }
+  }
+  .tile.pending { display:flex; align-items:center; justify-content:center; cursor:default; }
+  .tile .who {
+    position:absolute; left:0; right:0; bottom:0; padding:16px 7px 5px;
+    font-size:10.5px; font-weight:600; color:#fff; text-align:left;
+    background:linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    opacity:0; transition:opacity 160ms var(--ease);
+  }
+  @media (hover:hover) and (pointer:fine) {
+    .tile:hover .who { opacity:1; }
+  }
   .spinner {
-    width:22px; height:22px; border:2.5px solid rgba(15,163,155,0.25);
-    border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite;
+    width:22px; height:22px; border:2.5px solid var(--accent-wash);
+    border-top-color:var(--accent-text); border-radius:50%; animation:spin 0.8s linear infinite;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .empty { text-align:center; color:var(--dim); padding:46px 20px; font-size:15px; }
-  .notice {
-    background:rgba(15,163,155,0.09); border:1px solid rgba(15,163,155,0.28);
-    border-radius:14px; padding:13px 15px; font-size:14px; color:var(--text); margin:16px 0;
-  }
-  .notice.warn { background:rgba(194,69,59,0.07); border-color:rgba(194,69,59,0.3); }
+  @keyframes spin { to { transform:rotate(360deg); } }
 
-  /* ---- sticky add bar ---- */
-  .bar {
-    position:fixed; left:0; right:0; bottom:0; padding:14px 16px calc(14px + env(safe-area-inset-bottom));
-    background:linear-gradient(to top, var(--bg) 72%, rgba(243,235,223,0));
+  .empty { text-align:center; padding:56px 24px 40px; }
+  .empty .crest {
+    width:56px; height:56px; margin:0 auto 16px; border-radius:18px;
+    background:var(--accent-wash); display:flex; align-items:center; justify-content:center;
   }
-  .bar .inner { max-width:780px; margin:0 auto; }
+  .empty .crest svg { width:27px; height:27px; }
+  .empty h2 { font-size:18px; margin:0 0 6px; letter-spacing:-0.3px; }
+  .empty p { color:var(--dim); font-size:14.5px; margin:0; text-wrap:pretty; }
+
+  .notice {
+    background:var(--accent-wash);
+    border:1px solid color-mix(in srgb, var(--accent-text) 32%, transparent);
+    border-radius:14px; padding:13px 15px; font-size:14px; color:var(--text);
+    margin:0 0 16px; text-wrap:pretty;
+  }
+  .notice.warn {
+    background:color-mix(in srgb, var(--danger) 9%, transparent);
+    border-color:color-mix(in srgb, var(--danger) 34%, transparent);
+  }
+
+  /* ---- sticky add bar ----
+     Translucent + blurred rather than a gradient fade: it echoes the app's
+     Liquid Glass chrome, and a gradient to transparent smears gray in Safari. */
+  .bar {
+    position:fixed; left:0; right:0; bottom:0; z-index:var(--z-bar);
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+    background:var(--bar);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    backdrop-filter:blur(20px) saturate(180%);
+    border-top:1px solid var(--border);
+  }
+  @supports not (backdrop-filter:blur(1px)) {
+    .bar { background:var(--bg); }
+  }
+  .bar .inner { max-width:820px; margin:0 auto; }
+  /* A 780px-wide primary button is a target nobody needs. Full width is right
+     on a phone, wrong on a laptop. */
+  @media (min-width:560px) { .bar .inner { max-width:340px; } }
+
+  /* ---- lightbox ---- */
+  dialog#lightbox {
+    border:0; padding:0; margin:0; max-width:100vw; max-height:100dvh;
+    width:100vw; height:100dvh; background:transparent; overflow:hidden;
+    color:#fff;
+  }
+  /* Near-opaque: the album grid showing through the letterbox bars around a
+     portrait photo reads as a rendering bug, not as depth. */
+  dialog#lightbox::backdrop { background:rgba(0,0,0,0.97); }
+  dialog#lightbox[open] { animation:lbIn 190ms var(--ease); }
+  @keyframes lbIn {
+    from { opacity:0; transform:scale(0.96); }
+    to   { opacity:1; transform:none; }
+  }
+  .lb-stage {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:64px 8px 92px;
+  }
+  .lb-stage img {
+    max-width:100%; max-height:100%; object-fit:contain; display:block;
+    border-radius:6px; touch-action:pan-y;
+  }
+  .lb-top, .lb-bottom {
+    position:absolute; left:0; right:0; display:flex; align-items:center; gap:10px;
+    padding:calc(10px + env(safe-area-inset-top)) 12px 10px;
+  }
+  .lb-top { top:0; background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0)); }
+  .lb-bottom {
+    bottom:0; padding:14px 14px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+    justify-content:space-between;
+  }
+  .lb-meta { min-width:0; }
+  .lb-who { font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .lb-when { font-size:12px; color:rgba(255,255,255,0.68); font-variant-numeric:tabular-nums; }
+  .lb-count { font-size:13px; color:rgba(255,255,255,0.75); font-variant-numeric:tabular-nums; }
+  /* These sit directly on top of the photo, so they're a dark scrim rather
+     than a white one — a white wash disappears on a bright shot, and half the
+     photos at a wedding are bright. */
+  .lb-btn {
+    flex:none; width:40px; height:40px; border-radius:20px; border:0; cursor:pointer;
+    background:rgba(0,0,0,0.45); color:#fff;
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform 130ms var(--ease), background-color 130ms var(--ease);
+  }
+  .lb-btn:active { transform:scale(0.92); }
+  @media (hover:hover) and (pointer:fine) {
+    .lb-btn:hover { background:rgba(0,0,0,0.62); }
+  }
+  .lb-btn svg { width:20px; height:20px; }
+  .lb-btn.wide { width:auto; padding:0 16px; gap:8px; font:inherit; font-size:14px; font-weight:600; }
+  .lb-nav {
+    position:absolute; top:50%; transform:translateY(-50%); z-index:1;
+    width:44px; height:44px; border-radius:22px; border:0; cursor:pointer;
+    background:rgba(0,0,0,0.45); color:#fff;
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform 130ms var(--ease), background-color 130ms var(--ease), opacity 130ms var(--ease);
+  }
+  .lb-nav svg { width:22px; height:22px; }
+  .lb-nav.prev { left:10px; } .lb-nav.next { right:10px; }
+  .lb-nav:disabled { opacity:0.2; cursor:default; }
+  .lb-nav:active:not(:disabled) { transform:translateY(-50%) scale(0.92); }
+  @media (hover:hover) and (pointer:fine) {
+    .lb-nav:hover:not(:disabled) { background:rgba(0,0,0,0.62); }
+  }
+  /* Touch users swipe; the arrows are for pointers. */
+  @media (hover:none) { .lb-nav { display:none; } }
+
   .hidden { display:none !important; }
+  .sr-only {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* Reduced motion keeps the crossfades (they explain what changed) and drops
+     every movement and the spin. */
+  @media (prefers-reduced-motion:reduce) {
+    *, *::before, *::after {
+      animation-duration:0.01ms !important; animation-iteration-count:1 !important;
+      transition-duration:0.01ms !important;
+    }
+    .tile img { opacity:1; }
+    .spinner { border-top-color:var(--accent-text); animation:none; }
+    .btn:active, .tile:active, .lb-btn:active { transform:none; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
-    <span class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#0FA39B" stroke-width="1.8">
-        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="#0FA39B"/>
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--accent-text)">
+        <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3" fill="currentColor"/>
       </svg>
     </span>
     <span class="brand">SharedShots</span>
@@ -107,21 +356,29 @@
   <!-- STATE: join -->
   <section id="joinView" class="center">
     <div class="card">
+      <div class="crest" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-text)">
+          <path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.8a1 1 0 0 0 .84-.46l.9-1.4A1 1 0 0 1 9.88 4h4.24a1 1 0 0 1 .84.14l.9 1.4A1 1 0 0 0 16.7 6h1.8A2.5 2.5 0 0 1 21 8.5v8A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/>
+          <circle cx="12" cy="12.5" r="3.4"/>
+        </svg>
+      </div>
       <h1>Join the album</h1>
-      <p id="joinSub">Add your photos straight from your browser. No download needed.</p>
+      <p id="joinSub">Add your photos straight from your browser. Nothing to download.</p>
       <div class="code" id="codeChip">------</div>
+      <label class="sr-only" for="nameInput">Your name</label>
       <input type="text" id="nameInput" placeholder="Your name" autocomplete="name"
              maxlength="40" enterkeyhint="go" />
       <button class="btn" id="joinBtn">Join album</button>
-      <p class="err" id="joinErr"></p>
+      <p class="err" id="joinErr" role="alert"></p>
       <p class="muted">Your name is shown next to the photos you add.</p>
     </div>
   </section>
 
   <!-- STATE: loading -->
-  <section id="loadingView" class="center hidden">
+  <section id="loadingView" class="center hidden" aria-live="polite">
     <div class="card">
-      <div class="spinner" style="margin:6px auto 16px"></div>
+      <div class="spinner" style="margin:6px auto 16px" role="status" aria-label="Loading"></div>
       <p style="margin:0">Opening the album…</p>
     </div>
   </section>
@@ -132,10 +389,19 @@
       <h1 id="albumName">Album</h1>
       <div class="meta" id="albumMeta"></div>
     </div>
-    <div id="albumNotice"></div>
+    <div id="albumNotice" aria-live="polite"></div>
     <div class="grid" id="grid"></div>
     <div class="empty hidden" id="emptyState">
-      No photos yet. Be the first to add one.
+      <div class="crest" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-text)">
+          <rect x="3" y="5" width="18" height="14" rx="3"/>
+          <circle cx="8.5" cy="10" r="1.6"/>
+          <path d="M21 15.5l-4.2-4a1.6 1.6 0 0 0-2.2 0L5 20"/>
+        </svg>
+      </div>
+      <h2>Nothing here yet</h2>
+      <p>Be the first to add a photo. Everyone in the album sees it straight away.</p>
     </div>
   </section>
 
@@ -151,10 +417,52 @@
 
 <div class="bar hidden" id="addBar">
   <div class="inner">
-    <button class="btn" id="addBtn">Add photos</button>
+    <button class="btn" id="addBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+           stroke-linecap="round" width="19" height="19" aria-hidden="true">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      <span id="addBtnLabel">Add photos</span>
+    </button>
+    <label class="sr-only" for="fileInput">Choose photos to add</label>
     <input type="file" id="fileInput" accept="image/*" multiple class="hidden" />
   </div>
 </div>
+
+<dialog id="lightbox" aria-label="Photo viewer">
+  <div class="lb-stage">
+    <img id="lbImg" alt="" />
+  </div>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="lb-nav next" id="lbNext" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <div class="lb-top">
+    <button class="lb-btn" id="lbClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+           stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <span class="spacer" style="flex:1"></span>
+    <span class="lb-count" id="lbCount"></span>
+  </div>
+  <div class="lb-bottom">
+    <div class="lb-meta">
+      <div class="lb-who" id="lbWho"></div>
+      <div class="lb-when" id="lbWhen"></div>
+    </div>
+    <button class="lb-btn wide" id="lbSave">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/>
+      </svg>
+      Save
+    </button>
+  </div>
+</dialog>
 
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
@@ -180,6 +488,10 @@ const CODE = (params.get('c') || params.get('code') || '')
 
 let eventRow = null;
 let me = null;
+/** Rendered photos in grid order — the lightbox pages through this. */
+let photos = [];
+/** Photo ids already in the DOM, so a poll appends instead of rebuilding. */
+const rendered = new Set();
 
 // ---------------------------------------------------------------- boot
 if (!CODE) {
@@ -215,6 +527,7 @@ async function doJoin() {
   $('joinErr').textContent = '';
   if (name.length < 2) {
     $('joinErr').textContent = 'Please enter your name.';
+    $('nameInput').focus();
     return;
   }
   $('joinBtn').disabled = true;
@@ -259,6 +572,8 @@ async function joinAndLoad() {
   hide($('joinView'));
   show($('albumView'));
   show($('addBar'));
+  document.body.classList.add('in-album');
+  document.title = `${eventRow.name || 'Album'} · SharedShots`;
   // Light polling so other people's uploads appear without a manual refresh.
   setInterval(() => { loadPhotos().catch(() => {}); }, 20000);
 }
@@ -289,25 +604,154 @@ async function loadPhotos() {
   const { data, error } = await q;
   if (error) throw error;
 
+  const rows = data || [];
+  photos = rows;
+
+  // Append only what's new. The old code rebuilt the whole grid every 20s,
+  // which restarted every entrance animation, dropped the open lightbox's
+  // node, and churned the DOM for nothing.
   const grid = $('grid');
-  // Keep any in-flight upload tiles at the end.
   const pending = Array.from(grid.querySelectorAll('.tile.pending'));
-  grid.innerHTML = '';
-  (data || []).forEach((p) => {
-    const a = document.createElement('a');
-    a.className = 'tile';
-    a.href = p.download_url;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    const img = document.createElement('img');
-    img.loading = 'lazy';
-    img.src = p.thumbnail_url || p.download_url;
-    img.alt = p.uploader_name ? `Photo by ${p.uploader_name}` : 'Photo';
-    a.appendChild(img);
-    grid.appendChild(a);
+  let added = 0;
+  rows.forEach((p, i) => {
+    if (rendered.has(p.id)) return;
+    rendered.add(p.id);
+    grid.appendChild(buildTile(p, i, added++));
   });
+  // In-flight upload tiles always sit at the end.
   pending.forEach((t) => grid.appendChild(t));
-  $('emptyState').classList.toggle('hidden', (data || []).length > 0 || pending.length > 0);
+
+  $('emptyState').classList.toggle('hidden', rows.length > 0 || pending.length > 0);
+}
+
+function buildTile(p, index, arrivalOrder) {
+  const btn = document.createElement('button');
+  btn.className = 'tile enter';
+  btn.type = 'button';
+  // Stagger caps at 8 slots — a 50-photo album shouldn't take 2s to land.
+  btn.style.animationDelay = `${Math.min(arrivalOrder, 8) * 40}ms`;
+  btn.setAttribute(
+    'aria-label',
+    p.uploader_name ? `Photo by ${p.uploader_name}` : 'Photo',
+  );
+
+  const img = document.createElement('img');
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  img.src = p.thumbnail_url || p.download_url;
+  img.alt = '';
+  img.addEventListener('load', () => img.classList.add('ready'), { once: true });
+  // A cached image can be complete before the listener attaches.
+  if (img.complete) img.classList.add('ready');
+  btn.appendChild(img);
+
+  if (p.uploader_name) {
+    const who = document.createElement('span');
+    who.className = 'who';
+    who.textContent = p.uploader_name;
+    btn.appendChild(who);
+  }
+
+  btn.addEventListener('click', () => openLightbox(p.id));
+  return btn;
+}
+
+// ---------------------------------------------------------------- lightbox
+const lb = $('lightbox');
+let lbIndex = 0;
+
+function openLightbox(photoId) {
+  const i = photos.findIndex((p) => p.id === photoId);
+  if (i < 0) return;
+  lbIndex = i;
+  paintLightbox();
+  if (!lb.open) {
+    // showModal() alone doesn't stop the page scrolling underneath on iOS
+    // Safari, so a swipe on the photo drags the album around behind it.
+    document.body.style.overflow = 'hidden';
+    lb.showModal();
+  }
+}
+
+lb.addEventListener('close', () => { document.body.style.overflow = ''; });
+
+function paintLightbox() {
+  const p = photos[lbIndex];
+  if (!p) return;
+  $('lbImg').src = p.download_url;
+  $('lbImg').alt = p.uploader_name ? `Photo by ${p.uploader_name}` : 'Photo';
+  $('lbWho').textContent = p.uploader_name || 'Guest';
+  $('lbWhen').textContent = whenText(p.created_at);
+  $('lbCount').textContent = `${lbIndex + 1} of ${photos.length}`;
+  $('lbPrev').disabled = lbIndex === 0;
+  $('lbNext').disabled = lbIndex >= photos.length - 1;
+}
+
+function step(delta) {
+  const next = lbIndex + delta;
+  if (next < 0 || next >= photos.length) return;
+  lbIndex = next;
+  paintLightbox();
+}
+
+$('lbClose').addEventListener('click', () => lb.close());
+$('lbPrev').addEventListener('click', () => step(-1));
+$('lbNext').addEventListener('click', () => step(1));
+lb.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+});
+// Tapping the dark surround closes; tapping the photo doesn't.
+lb.addEventListener('click', (e) => {
+  if (e.target === lb || e.target.classList.contains('lb-stage')) lb.close();
+});
+
+// Swipe between photos on touch.
+let touchX = null, touchY = null;
+lb.addEventListener('touchstart', (e) => {
+  touchX = e.changedTouches[0].clientX;
+  touchY = e.changedTouches[0].clientY;
+}, { passive: true });
+lb.addEventListener('touchend', (e) => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  const dy = e.changedTouches[0].clientY - touchY;
+  touchX = null;
+  // Horizontal intent only, and enough of it to not fight a scroll.
+  if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) step(dx < 0 ? 1 : -1);
+}, { passive: true });
+
+$('lbSave').addEventListener('click', async () => {
+  const p = photos[lbIndex];
+  if (!p) return;
+  try {
+    // `download` is ignored cross-origin, so fetch the bytes and hand the
+    // browser a same-origin blob URL instead.
+    const res = await fetch(p.download_url);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `sharedshots-${p.id.slice(0, 8)}.jpg`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  } catch {
+    window.open(p.download_url, '_blank', 'noopener');
+  }
+});
+
+function whenText(iso) {
+  if (!iso) return '';
+  const t = Date.parse(iso);
+  if (Number.isNaN(t)) return '';
+  const diff = Date.now() - t;
+  const min = 60000, hour = 60 * min, day = 24 * hour;
+  if (diff < hour) return 'just now';
+  if (diff < day) return `${Math.floor(diff / hour)}h ago`;
+  if (diff < 7 * day) return `${Math.floor(diff / day)}d ago`;
+  return new Date(t).toLocaleDateString();
 }
 
 // ---------------------------------------------------------------- upload
@@ -317,11 +761,16 @@ $('fileInput').addEventListener('change', async (e) => {
   e.target.value = '';
   if (!files.length) return;
   $('addBtn').disabled = true;
+  const label = $('addBtnLabel');
   let ok = 0, failed = 0, lastErr = null;
-  for (const file of files) {
+  for (let i = 0; i < files.length; i++) {
+    // Silence on a 12-photo upload feels broken; count it out instead.
+    label.textContent = files.length > 1
+      ? `Adding ${i + 1} of ${files.length}…`
+      : 'Adding…';
     const tile = addPendingTile();
     try {
-      await uploadOne(file);
+      await uploadOne(files[i]);
       ok++;
     } catch (err) {
       failed++; lastErr = err;
@@ -329,6 +778,7 @@ $('fileInput').addEventListener('change', async (e) => {
       tile.remove();
     }
   }
+  label.textContent = 'Add photos';
   $('addBtn').disabled = false;
   await refreshEvent();
   await loadPhotos().catch(() => {});
@@ -343,7 +793,7 @@ $('fileInput').addEventListener('change', async (e) => {
 function addPendingTile() {
   const d = document.createElement('div');
   d.className = 'tile pending';
-  d.innerHTML = '<div class="spinner"></div>';
+  d.innerHTML = '<div class="spinner" role="status" aria-label="Uploading"></div>';
   $('grid').appendChild(d);
   $('emptyState').classList.add('hidden');
   return d;
@@ -420,6 +870,7 @@ function showLoading() { hide($('joinView')); show($('loadingView')); }
 
 function fatal(title, body) {
   hide($('joinView')); hide($('loadingView')); hide($('albumView')); hide($('addBar'));
+  document.body.classList.remove('in-album');
   $('errTitle').textContent = title;
   $('errBody').textContent = body;
   show($('errorView'));
@@ -433,7 +884,7 @@ function friendly(e) {
   if (/PASS_PHOTO_LIMIT/i.test(msg))
     return 'This album has used every photo on its pass. The host can upgrade it.';
   if (/FREE_MEMBER_LIMIT/i.test(msg))
-    return 'This album is full — a free album holds up to 5 people. The host can make room with an Event Pass.';
+    return 'This album is full. A free album holds up to 5 people, and the host can make room with an Event Pass.';
   if (/PASS_GUEST_LIMIT/i.test(msg))
     return 'This album is at its guest limit. The host can upgrade the pass to add more people.';
   if (/requires approval|pending|APPROVAL/i.test(msg))
