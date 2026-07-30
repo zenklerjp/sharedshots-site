@@ -1,6 +1,6 @@
 # SharedShots Terms of Service
 
-_Last updated: 2026-07-06_
+_Last updated: 2026-07-30_
 
 These Terms govern the use of the SharedShots mobile application (the "App").
 In these Terms, "the user" means the person who downloads, registers for, or
@@ -33,10 +33,12 @@ album is always free for every member. Two optional purchases exist:
   pay. The price is calculated from the exact allowances the buyer selects
   (people, photos, video, photo quality, album lifetime, and
   whether the "Made with SharedShots" notice is removed), all shown before
-  purchase. The buyer chooses an album lifetime of 6 or 9 months, and buying
-  a further pass on the same album extends its lifetime by the newly chosen
-  period and never reduces its existing allowances. It is not a
-  subscription, does not auto-renew, and once redeemed onto an album it
+  purchase. A pass buys **capacity, not time**: unless the buyer also pays the
+  separate lifetime extension, the album keeps the same 3-month lifetime a free
+  album has. The extension is offered at the time of purchase and takes the
+  album to 6 or 9 months. Buying a further pass on the same album never reduces
+  its existing allowances or shortens its lifetime, and can extend both. It is
+  not a subscription, does not auto-renew, and once redeemed onto an album it
   cannot be moved to a different album.
 - **Split contributions ("chip-ins").** Members of an album may optionally
   split the cost of an Event Pass. Each chip-in is its own one-time in-app
@@ -63,28 +65,38 @@ album is always free for every member. Two optional purchases exist:
 - **Refunds.** Purchases are processed by Apple and are subject to Apple's
   refund policy. The developer generally cannot issue refunds
   directly; refund requests should be made through Apple.
-- **Free-plan limits.** The free plan currently includes being in up to 3
-  albums at a time (joined or hosted), up to 50 photos per album, up to 10
-  people per album, a subset of film filters, and uploads only while the
-  user is online. A free member of any album sees its first 50 photos unless
-  that album has an Event Pass. Photos download in HD on every plan, including
-  free. Free albums display a small "Made with SharedShots" notice, which is
-  removed when the album has an Event Pass. An Event Pass opens one album for
-  everyone in it, with the people, photo, and video allowances the buyer
-  selected; album allowances come from the album's pass for every host,
-  including Premium subscribers. Premium is a personal subscription: it lets
-  the user see every photo in every album they are in, keeps albums they host
-  for 12 months instead of 3, unlocks every filter, enables offline capture,
-  and removes the limit on how many albums they can host or join.
-  The developer may change the limits or benefits with reasonable notice.
+- **Free-plan limits.** A free album currently holds up to 50 photos, 1 minute
+  of video and 5 people, and lasts 3 months. A user may be in up to 3 albums at
+  a time, joined or hosted, and gets 4 of the 9 film filters. Capturing while
+  offline, with photos uploading on reconnect, is included on every plan.
+  Photos download in HD on every plan, including free. Free albums display a
+  small "Made with SharedShots" notice, which is removed when the album has a
+  paid Event Pass.
+- **What an album holds belongs to the album.** Every member of an album sees
+  all of it, on any plan; there is no per-person cap on how many photos of an
+  album a member can see. An Event Pass therefore opens one album for everyone
+  in it, with the people, photo and video allowances the buyer selected, and
+  those allowances come from that album's own pass whoever hosts it. Joining
+  someone else's album does not change what that album holds, whatever plan the
+  joiner is on.
+- **What Premium is.** Premium is a personal subscription for people who host
+  often. It raises what the albums **the subscriber hosts** hold, to 150 photos,
+  5 minutes of video, unlimited guests and a 12-month lifetime instead of 3
+  months, removes the "Made with SharedShots" notice from those albums, unlocks
+  all 9 filters in every album the subscriber is in, and removes the limit on
+  how many albums they can host or join. It does not resize albums hosted by
+  other people. The developer may change the limits or benefits with reasonable
+  notice.
 - **Albums are temporary and are automatically deleted.** SharedShots is a
   tool for sharing photos around an event, not cloud storage or backup. Every
   album has a limited lifetime and is **permanently and automatically deleted**
-  when it ends, along with all photos in it: currently 3 months after a free
-  album is created, the chosen 6 or 9 months for an album with an Event Pass
-  (extendable by renewing), and 12 months for an album with a Premium host.
-  The App shows a countdown and reminds members before deletion,
-  but deletion cannot be undone and deleted content cannot be recovered.
+  when it ends, along with all photos and videos in it: currently 3 months for a
+  free album or one with a base Event Pass, 6 or 9 months where the pass buyer
+  also paid for the lifetime extension (extendable by renewing), and 12 months
+  for an album hosted by a Premium subscriber. The App shows a countdown and its
+  exact deletion date, and reminds members at 30, 14, 7, 3 and 1 days before
+  deletion, but deletion cannot be undone and deleted content cannot be
+  recovered.
   **Users must download and keep their own copies of any photos they want to
   keep, before the album is deleted.** The developer is not responsible for
   content the user did not save elsewhere, and may change these lifetimes with

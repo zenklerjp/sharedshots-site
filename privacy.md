@@ -1,6 +1,6 @@
 # SharedShots Privacy Policy
 
-_Last updated: 2026-07-06_
+_Last updated: 2026-07-30_
 
 This Privacy Policy describes how the SharedShots mobile application (the
 "App") collects, uses, and shares information. In this Policy, "the user"
@@ -22,12 +22,20 @@ shared-event photo albums work.
 | **Account info** | Email address, display name, hashed password | To let the user sign in and identify them to other event members. |
 | **Event data** | Event name, date, description, 6-character join code, member list, join requests | To run the shared album feature, including host approval of new members. |
 | **Photos** | The image files the user captures or imports, plus metadata (filter applied, upload time, uploader id, dimensions, file type) | To display photos in the album to other event members. |
+| **Videos, including their sound** | The video files the user records or imports, and the audio recorded as part of them, plus metadata (duration, upload time, uploader id, poster image) | To play videos back to other event members. Audio is only ever captured as part of a video the user is recording. |
 | **Comments & reactions** | Text comments and "likes" the user adds to photos, with their display name | To show them to other members of that event. |
 | **Purchase status** | Whether a subscription is active or an Event Pass was bought (received from Apple via the billing provider) | To unlock what the user bought. Card details are never received or stored. |
 | **Device & app diagnostics** | Crash logs, app version, OS version, anonymized error messages | To fix bugs. No third-party analytics SDKs are used. |
 
 The App does not collect: precise location, contacts, advertising IDs,
-microphone audio, browsing history, or biometric data.
+browsing history, or biometric data. Photos are captured without location
+EXIF data, because the camera is built without the location module at all
+rather than merely not reading it.
+
+The microphone is used **only** while the user is actively recording a video,
+to capture that video's sound. The App never records audio at any other time,
+has no voice-note or standalone audio feature, and does not listen in the
+background.
 
 The developer does not sell, rent, or trade personal information to
 anyone.
@@ -39,9 +47,18 @@ Account info, event data, and photos are processed in the App's backend
 randomly generated (UUID) URLs that are not guessable and are only surfaced
 to members of the relevant event inside the App.
 
-Data is retained for as long as the account exists. When the user deletes
-their account in-app (Profile, then Delete account), their profile, the
-events they own, their event memberships, and the photos they uploaded are
+**Albums are deleted automatically, on a timer, whether or not the account
+still exists.** Every album has a limited lifetime, and when it ends the album
+and every photo and video in it are permanently deleted: currently 3 months for
+a free album or one with a base Event Pass, 6 or 9 months where the pass buyer
+paid for the lifetime extension, and 12 months for an album hosted by a Premium
+subscriber. Members are reminded at 30, 14, 7, 3 and 1 days beforehand and the
+album shows its exact deletion date. Deletion cannot be undone. An album
+expiring does not affect the user's account or profile.
+
+Account data is otherwise retained for as long as the account exists. When the
+user deletes their account in-app (Profile, then Delete account), their profile,
+the events they own, their event memberships, and the photos they uploaded are
 all removed within minutes. Cached copies at CDN edges may persist briefly
 before they expire.
 
@@ -68,12 +85,19 @@ of their event keeping.
 
 ## 4. Permissions the App requests
 
-- **Camera:** to take photos in the App.
+- **Camera:** to take photos and record video in the App.
+- **Microphone:** only while recording a video, to capture its sound. Not used
+  at any other time.
 - **Photo library:** only when the user taps "From library" to import an
-  existing photo, or "Save to library" on a photo they want to keep locally.
+  existing photo or video, or "Save to library" on something they want to keep
+  locally.
+- **Notifications:** optional. Used to say when photos are added to an album the
+  user is in, when someone asks to join an album they host, and before an album
+  is deleted. Declining them limits nothing else in the App.
 
 These are requested via standard iOS prompts and can be revoked at any time
-in **Settings, then SharedShots**.
+in **Settings, then SharedShots**. The App does not ask for tracking permission,
+and contains no advertising and no third-party analytics SDKs.
 
 ## 5. The user's choices
 
