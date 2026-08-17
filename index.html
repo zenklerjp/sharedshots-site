@@ -2,25 +2,172 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SharedShots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>SharedShots | Everyone's photos, one shared roll</title>
+  <meta name="description" content="Create one event album, share a six-character code, and collect everyone's photos in one live roll. Guests can join from the browser." />
+  <meta name="theme-color" content="#f4efe5" />
+  <meta name="color-scheme" content="light" />
+  <link rel="canonical" href="https://zenklerjp.github.io/sharedshots-site/" />
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" type="image/png" href="./icon.png" />
   <link rel="apple-touch-icon" href="./icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SharedShots | Everyone's photos, one shared roll" />
+  <meta property="og:description" content="Create the album. Pass around one code. Wake up to the whole night." />
+  <meta property="og:url" content="https://zenklerjp.github.io/sharedshots-site/" />
+  <meta property="og:image" content="https://zenklerjp.github.io/sharedshots-site/assets/event-contact-sheet-v2.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
-  <div class="wrap">
-    <a class="brand" href="./index.html"><img class="brand-icon" src="./icon.png" alt="" /> SharedShots</a>
-    <main>
-      <h1>SharedShots</h1>
-      <p class="tagline">One shared camera roll for the whole night. Create an event, share a code, and everyone’s photos land in one live album shot through a retro film camera.</p>
-      <ul class="home-links">
-        <li><a href="./privacy.html">Privacy Policy →</a></li>
-        <li><a href="./terms.html">Terms of Service →</a></li>
-        <li><a href="mailto:sharedshots.support@gmail.com">Support: sharedshots.support@gmail.com →</a></li>
-      </ul>
-      <footer>© 2026 SharedShots. All rights reserved.</footer>
-    </main>
-  </div>
+<body class="landing">
+  <!--
+  THESIS: Separate guest camera rolls converge into one event record; refuse the generic app hero beside a floating phone.
+  OWN-WORLD: Warm light-table ivory, black film rails, teal lab marks, acetate sleeves, and precise contact-sheet rhythm.
+  STORY: Hosts understand the code, see browser access and the live roll, trust the controls, then get the iPhone app.
+  FIRST VIEWPORT: Calm copy fills the left third; event film and a real product screen cross into a large proof sheet at right; the App Store badge anchors the action.
+  FORM: Afterparty Light Table ranked first, staged as a convergence cross with vertical strata ascent; seed key 2ecbd7d3.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+  -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="site-brand" href="./index.html" aria-label="SharedShots home">
+      <img src="./icon.png" alt="" width="44" height="44" />
+      <span>SharedShots</span>
+    </a>
+    <nav class="site-nav" aria-label="Site navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#inside-the-roll">Inside the roll</a>
+    </nav>
+    <a class="header-action" href="https://apps.apple.com/app/id6786014182" data-app-store>Get the app</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="lab-stamp" aria-hidden="true"><span>SS</span><span>ONE NIGHT</span><span>ALL TOGETHER</span></div>
+        <h1 id="hero-title">Everyone's photos.<br />One shared roll.</h1>
+        <p>Create the album. Pass around one code. Wake up to the whole night.</p>
+        <div class="hero-actions">
+          <a class="app-store-badge" href="https://apps.apple.com/app/id6786014182" aria-label="Download SharedShots on the App Store" data-app-store>
+            <img src="./assets/download-on-app-store.svg" alt="Download on the App Store" width="144" height="48" />
+          </a>
+          <a class="text-action" href="#how-it-works">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+
+      <div class="convergence-stage" role="group" aria-label="Event photos converging into one SharedShots album">
+        <div class="registration registration-one" aria-hidden="true"></div>
+        <div class="registration registration-two" aria-hidden="true"></div>
+        <div class="film-strip film-strip-top" aria-hidden="true">
+          <img src="./assets/event-contact-sheet-v2.webp" alt="" width="1448" height="1086" />
+        </div>
+        <div class="film-strip film-strip-bottom" aria-hidden="true">
+          <img src="./assets/event-contact-sheet-v2.webp" alt="" width="1448" height="1086" />
+        </div>
+        <div class="film-strip film-strip-left" aria-hidden="true">
+          <img src="./assets/event-contact-sheet-v2.webp" alt="" width="1448" height="1086" />
+        </div>
+        <div class="film-strip film-strip-right" aria-hidden="true">
+          <img src="./assets/event-contact-sheet-v2.webp" alt="" width="1448" height="1086" />
+        </div>
+        <figure class="contact-proof">
+          <img src="./assets/event-contact-sheet-v2.webp" alt="Candid guest photos from a backyard birthday and late-night hangout" width="1448" height="1086" />
+        </figure>
+        <figure class="product-proof">
+          <div class="product-shot-crop">
+            <img src="./assets/app-gallery-hd.webp" alt="SharedShots live event gallery on iPhone" width="1287" height="2796" fetchpriority="high" />
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="host-flow" id="how-it-works" aria-labelledby="flow-title">
+      <div class="flow-copy">
+        <div class="section-intro">
+          <h2 id="flow-title">Start the album.<br />Let the night fill it.</h2>
+        </div>
+        <ol class="flow-list">
+          <li>
+            <h3>Create it</h3>
+            <p>Open an event album before people arrive.</p>
+          </li>
+          <li>
+            <h3>Pass it around</h3>
+            <p>Invite everyone with a six-character code or direct link.</p>
+          </li>
+          <li>
+            <h3>Watch it grow</h3>
+            <p>Photos land in one live roll as the night unfolds.</p>
+          </li>
+        </ol>
+        <div class="guest-join-copy">
+          <h3>Guests join from the browser.</h3>
+          <p>They can add photos straight from their camera roll without downloading the app.</p>
+          <a class="text-action" href="./join.html">Open the guest join page <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <figure class="code-proof">
+        <img src="./assets/app-code-hd.webp" alt="SharedShots join code, QR code, and guest screens" width="1287" height="2796" loading="lazy" />
+        <figcaption><strong>No app needed for guests.</strong> Open it from any phone browser.</figcaption>
+      </figure>
+    </section>
+
+    <section class="roll-section" id="inside-the-roll" aria-labelledby="roll-title">
+      <div class="roll-heading">
+        <h2 id="roll-title">Shoot, react,<br />and keep going.</h2>
+        <p>Keep taking photos when the signal drops. SharedShots uploads them when the connection comes back.</p>
+      </div>
+      <div class="screen-run" role="region" aria-label="SharedShots app screens" tabindex="0">
+        <figure class="screen-frame screen-frame-one">
+          <img src="./assets/app-camera-hd.webp" alt="SharedShots camera preview with retro film looks" loading="lazy" />
+          <figcaption>Choose a film look</figcaption>
+        </figure>
+        <figure class="screen-frame screen-frame-two">
+          <img src="./assets/app-social-hd.webp" alt="SharedShots photo view with likes, comments, save, and share actions" loading="lazy" />
+          <figcaption>React and comment</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="control-section" aria-labelledby="control-title">
+      <div class="control-visual" aria-hidden="true">
+        <img src="./assets/app-events-hd.webp" alt="" loading="lazy" />
+        <span class="control-mark">HOST<br />COPY</span>
+      </div>
+      <div class="control-copy">
+        <h2 id="control-title">You host.<br />You stay in control.</h2>
+        <p>Albums are private by code. Approve what appears, remove members when needed, and keep the final roll with the people who were there.</p>
+        <ul>
+          <li>Private event access</li>
+          <li>Host approvals</li>
+          <li>Member controls</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-title">
+      <div class="final-copy">
+        <h2 id="final-title">Put SharedShots on the guest list.</h2>
+        <p>Free to download for iPhone. Requires iOS 15.1 or later.</p>
+      </div>
+      <a class="primary-action" href="https://apps.apple.com/app/id6786014182" data-app-store>View SharedShots on the App Store <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="site-brand footer-brand" href="./index.html">
+      <img src="./icon.png" alt="" width="36" height="36" />
+      <span>SharedShots</span>
+    </a>
+    <div class="footer-links">
+      <a href="./privacy.html">Privacy</a>
+      <a href="./terms.html">Terms</a>
+      <a href="mailto:sharedshots.support@gmail.com">Support</a>
+    </div>
+    <p>© 2026 SharedShots. All rights reserved.</p>
+  </footer>
+
+  <script src="./script.js"></script>
 </body>
 </html>
