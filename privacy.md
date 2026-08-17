@@ -24,7 +24,7 @@ shared-event photo albums work.
 | **Photos** | The image files the user captures or imports, plus metadata (filter applied, upload time, uploader id, dimensions, file type) | To display photos in the album to other event members. |
 | **Videos, including their sound** | The video files the user records or imports, and the audio recorded as part of them, plus metadata (duration, upload time, uploader id, poster image) | To play videos back to other event members. Audio is only ever captured as part of a video the user is recording. |
 | **Comments & reactions** | Text comments and "likes" the user adds to photos, with their display name | To show them to other members of that event. |
-| **Purchase status** | Whether a subscription is active or an Event Pass was bought (received from Apple via the billing provider) | To unlock what the user bought. Card details are never received or stored. |
+| **Purchase status** | Whether a subscription is active or an Event Pass was bought (received from the app store via the billing provider) | To unlock what the user bought. Card details are never received or stored. |
 | **Device & app diagnostics** | Crash logs, app version, OS version, anonymized error messages | To fix bugs. No third-party analytics SDKs are used. |
 
 The App does not collect: precise location, contacts, advertising IDs,
@@ -95,9 +95,11 @@ of their event keeping.
   user is in, when someone asks to join an album they host, and before an album
   is deleted. Declining them limits nothing else in the App.
 
-These are requested via standard iOS prompts and can be revoked at any time
-in **Settings, then SharedShots**. The App does not ask for tracking permission,
-and contains no advertising and no third-party analytics SDKs.
+These are requested via the standard system prompts and can be revoked at any
+time: on iOS in **Settings, then SharedShots**, and on Android in **Settings,
+then Apps, then SharedShots, then Permissions**. The App does not ask for
+tracking permission, and contains no advertising and no third-party analytics
+SDKs.
 
 ## 5. The user's choices
 

@@ -47,24 +47,28 @@ album is always free for every member. Two optional purchases exist:
   until then the album keeps its free-plan limits. A member's unspent
   contribution to an open split can be moved back to their chip-in credit
   inside the App and used toward any other split, but chip-in purchases are
-  processed by Apple and refunds outside the App are subject to Apple's
-  refund policy.
+  processed by the app store the App was installed from, and refunds outside
+  the App are subject to that store's refund policy.
 - **Billing.** Premium is sold as an auto-renewable subscription through the
-  user's Apple App Store account. The current price and billing period are
-  shown on the in-app paywall before purchase.
+  user's Apple App Store or Google Play account, depending on which store the
+  App was installed from. The current price and billing period are shown on the
+  in-app paywall before purchase.
 - **Auto-renewal.** A subscription renews automatically at the end of each
   period unless the user cancels at least 24 hours before it ends. The user's
-  Apple ID is charged at confirmation of purchase and again at each renewal.
+  App Store or Google Play account is charged at confirmation of purchase and
+  again at each renewal.
 - **Introductory offers.** Any introductory or discounted price applies only
   to eligible new subscribers for the stated period, after which the
   subscription renews at the standard price.
-- **Managing and cancelling.** Subscriptions can be managed or cancelled at
-  any time in the App Store: Settings, then the user's name, then
-  Subscriptions. Cancelling stops future renewals; the current paid period
-  stays active until it ends.
-- **Refunds.** Purchases are processed by Apple and are subject to Apple's
-  refund policy. The developer generally cannot issue refunds
-  directly; refund requests should be made through Apple.
+- **Managing and cancelling.** Subscriptions can be managed or cancelled at any
+  time from the store the subscription was bought through. On iOS: Settings,
+  then the user's name, then Subscriptions. On Android: the Play Store app,
+  then the profile icon, then Payments and subscriptions. Cancelling stops
+  future renewals; the current paid period stays active until it ends.
+- **Refunds.** Purchases are processed by the app store the App was installed
+  from and are subject to that store's refund policy. The developer generally
+  cannot issue refunds directly; refund requests should be made through that
+  store.
 - **Free-plan limits.** A free album currently holds up to 50 photos, 1 minute
   of video and 5 people, and lasts 3 months. A user may be in up to 3 albums at
   a time, joined or hosted, and gets 4 of the 9 film filters. Capturing while
@@ -102,7 +106,7 @@ album is always free for every member. Two optional purchases exist:
   content the user did not save elsewhere, and may change these lifetimes with
   reasonable notice.
 - **Payment data.** The developer never receives or stores card
-  details. Apple handles payment. The developer receives only the
+  details. The app store handles payment. The developer receives only the
   user's purchase status in order to unlock what was bought.
 
 ## 4. Acceptable use

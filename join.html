@@ -61,6 +61,16 @@
       // Deliberately NO auto-redirect to the app. Bouncing everyone into the
       // App Store was the drop-off point: most guests never come back. Let them
       // pick — "Continue in browser" needs no download.
+
+      // Point "Get the app" at the store the visitor can actually install from.
+      // A guest opening a shared link on Android was being sent to the iOS App
+      // Store, which is a dead end for exactly the person the link is for.
+      if (/android/i.test(navigator.userAgent)) {
+        document.getElementById('store').setAttribute(
+          'href',
+          'https://play.google.com/store/apps/details?id=com.jadenplaatjes.sharedshots'
+        );
+      }
     } else {
       document.getElementById('sub').textContent = 'This link is missing an album code.';
       document.getElementById('code').style.display = 'none';
