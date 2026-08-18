@@ -1,0 +1,8 @@
+# Album and join pages need a ?c=CODE to mean anything; without one they render
+# an error state. Keep them out of the index so a stranger searching for
+# SharedShots never lands on one. Codes are shared privately, so nothing is lost.
+User-agent: *
+Disallow: /album.html
+Disallow: /join.html
+
+Sitemap: https://sharedshots.site/sitemap.xml

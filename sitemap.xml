@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Only the three pages that are meaningful to a stranger arriving from search.
+
+  join.html and album.html are deliberately absent. Both are app-flow pages that
+  do nothing without a ?c=CODE query: join.html says "This link is missing an
+  album code" and album.html shows an error state. Indexing either would put a
+  broken-looking page in front of someone searching for the product, and album
+  codes are shared privately, so there is no traffic to win there anyway.
+  robots.txt disallows them for the same reason.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sharedshots.site/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://sharedshots.site/privacy.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://sharedshots.site/terms.html</loc>
+    <lastmod>2026-08-18</lastmod>
+    <priority>0.3</priority>
+  </url>
+</urlset>
