@@ -17,6 +17,32 @@
   <meta property="og:url" content="https://sharedshots.site/" />
   <meta property="og:image" content="https://sharedshots.site/assets/event-contact-sheet-v2.webp" />
   <meta name="twitter:card" content="summary_large_image" />
+  <!--
+    Google's OAuth branding review compares the app name on the consent screen
+    against the app name on the homepage, and flagged them as not matching on
+    2026-08-18 even though both read "SharedShots". The visible brand and the
+    <title> both already lead with it, so the gap was that nothing stated the
+    name in a form a checker can read without inferring it from layout. These
+    three do, and all three say exactly what the Cloud Console says.
+
+    The App Store name stays "SharedShots: Event Photo Album" on purpose - that
+    longer form carries the ASO keywords, and Google's check is against this
+    page, not the store listing.
+  -->
+  <meta property="og:site_name" content="SharedShots" />
+  <meta name="application-name" content="SharedShots" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SharedShots",
+    "url": "https://sharedshots.site/",
+    "applicationCategory": "PhotoApplication",
+    "operatingSystem": "iOS 15.1 or later",
+    "description": "Create one event album, share a six-character code, and collect everyone's photos in one live roll. Guests can join from the browser.",
+    "sameAs": "https://apps.apple.com/app/id6786014182"
+  }
+  </script>
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="landing">
