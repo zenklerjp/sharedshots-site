@@ -963,6 +963,19 @@ a:focus-visible {
   text-wrap: balance;
 }
 
+/* A real, scannable QR for https://sharedshots.site/ - generated from the URL,
+   not drawn. Error level Q with a 4-module quiet zone baked into the viewBox,
+   so it still reads once printed and photographed off a table. crispEdges
+   stops the renderer antialiasing module edges into grey mush at small sizes,
+   which is what breaks scanning. It is ink on Fresh Print, never inverted:
+   scanners expect dark modules on a light field. */
+.prep-qr {
+  width: clamp(112px, 12vw, 132px);
+  height: auto;
+  margin-top: 20px;
+  color: var(--ink);
+}
+
 .prep-card-label {
   width: 100%;
   margin-top: 22px;

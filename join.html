@@ -72,10 +72,16 @@
         );
       }
     } else {
-      document.getElementById('sub').textContent = 'This link is missing an album code.';
+      // Missing code used to leave nothing but a sentence and a store button.
+      // album.html can take a typed code now, so send them somewhere that can
+      // actually help instead of ending the journey here.
+      document.getElementById('sub').textContent =
+        'This link is missing an album code. You can enter it by hand instead.';
       document.getElementById('code').style.display = 'none';
       document.getElementById('open').style.display = 'none';
-      document.getElementById('web').style.display = 'none';
+      var web = document.getElementById('web');
+      web.textContent = 'Enter a code';
+      web.setAttribute('href', './album.html');
     }
   })();
 </script>
