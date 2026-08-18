@@ -1,12 +1,13 @@
 # SharedShots Terms of Service
 
-_Last updated: 2026-07-30_
+_Last updated: 2026-08-18_
 
-These Terms govern the use of the SharedShots mobile application (the "App").
-In these Terms, "the user" means the person who downloads, registers for, or
-uses the App, and "the developer" means the
-operator and provider of SharedShots. By using the App the user agrees to
-these Terms. A user who does not agree must not use the App.
+These Terms govern the use of SharedShots: the mobile application (the "App")
+and the sharedshots.site website, including the web album viewer, which can also
+be used to view and add photos. In these Terms, "the user" means the person who
+downloads, registers for, or uses SharedShots, and "the developer" means the
+operator and provider of SharedShots. By using SharedShots the user agrees to
+these Terms. A user who does not agree must not use it.
 
 ---
 
@@ -216,14 +217,15 @@ To the maximum extent permitted by law:
 - The developer is not liable for indirect, incidental, special,
   consequential, or punitive damages arising from use of the App.
 - The developer's total aggregate liability for any claim is limited
-  to the greater of USD 50 or the amount the user paid to the SharedShots
-  team in the 12 months before the claim.
+  to the greater of USD 50 or the amount the user paid to the developer in
+  the 12 months before the claim.
 
 ## 11. Indemnification
 
-The user agrees to defend, indemnify, and hold the developer harmless from any claims, damages, losses, or expenses (including
-reasonable legal fees) arising from the user's content, the user's use of the
-App, or the user's violation of these Terms or of anyone else's rights.
+The user agrees to defend, indemnify, and hold the developer harmless from any
+claims, damages, losses, or expenses (including reasonable legal fees) arising
+from the user's content, the user's use of SharedShots, or the user's violation
+of these Terms or of anyone else's rights.
 
 This includes any claim arising from the unauthorised use, upload, download,
 copying, or distribution of content by the user or by any other user, and
@@ -231,19 +233,44 @@ from any content the user uploads without the right to share it. SharedShots
 and its developer are not liable for, and are held harmless from, any such
 unauthorised use, upload, or download of content shared on the platform.
 
-## 12. Governing law
+## 12. If the App was downloaded from the Apple App Store
+
+These Terms are between the user and the developer only. Apple is not a party to
+them and is not responsible for the App or its content.
+
+- Apple has no obligation to provide any maintenance or support for the App.
+- If the App fails to conform to any applicable warranty, the user may notify
+  Apple, and Apple will refund the purchase price of the App. To the maximum
+  extent permitted by law, Apple has no other warranty obligation of any kind,
+  and any other claim relating to the App is the developer's responsibility.
+- Apple is not responsible for addressing any claim by the user or a third party
+  relating to the App, including product liability claims, any claim that the App
+  fails to meet a legal or regulatory requirement, and claims under consumer
+  protection or similar law.
+- If a third party claims the App infringes their intellectual property rights,
+  the developer, not Apple, is responsible for investigating and resolving it.
+- The user confirms they are not located in a country subject to a US Government
+  embargo or designated as a terrorist-supporting country, and are not on any US
+  Government list of prohibited or restricted parties.
+- Questions, complaints and support requests about the App go to
+  **sharedshots.support@gmail.com**.
+- Apple and its subsidiaries are third-party beneficiaries of these Terms, and on
+  the user's acceptance of them Apple has the right to enforce these Terms
+  against the user.
+
+## 13. Governing law
 
 These Terms, and any dispute arising from them or from use of the App, are
 governed by the laws of the Republic of South Africa, without regard to
 conflict-of-law rules. Nothing in this section takes away protections granted
 to consumers by mandatory laws of the country where the user lives.
 
-## 13. Changes
+## 14. Changes
 
 The developer may update these Terms. Material changes will be
 announced in the App or by email. Continued use after a change indicates
 acceptance.
 
-## 14. Contact
+## 15. Contact
 
 Questions about these Terms: **sharedshots.support@gmail.com**

@@ -1,11 +1,12 @@
 # SharedShots Privacy Policy
 
-_Last updated: 2026-07-30_
+_Last updated: 2026-08-18_
 
-This Privacy Policy describes how the SharedShots mobile application (the
-"App") collects, uses, and shares information. In this Policy, "the user"
-means the person using the App, and "the developer" means the operator
-and provider of SharedShots. By using the App the user agrees to the
+This Privacy Policy describes how SharedShots collects, uses, and shares
+information. It covers the SharedShots mobile application (the "App") and the
+sharedshots.site website, including the web album viewer. In this Policy, "the
+user" means the person using SharedShots, and "the developer" means the operator
+and provider of SharedShots. By using SharedShots the user agrees to the
 practices described here.
 
 Questions can be emailed to **sharedshots.support@gmail.com**.
@@ -37,15 +38,22 @@ to capture that video's sound. The App never records audio at any other time,
 has no voice-note or standalone audio feature, and does not listen in the
 background.
 
+**Opening an album in a web browser.** The website can show an album without
+the App and without signing up, but the browser is signed in anonymously so the
+photos can be loaded and added to. That anonymous account holds no email address
+and no password. The name typed before joining is kept in the browser's own
+storage on that device so it does not have to be typed again, and is attached to
+anything uploaded from the browser, the same way it is in the App.
+
 The developer does not sell, rent, or trade personal information to
 anyone.
 
 ## 2. How data is handled
 
-Account info, event data, and photos are processed in the App's backend
+Account info, event data, and photos are processed in the SharedShots backend
 (currently Supabase, hosted on AWS). Photos are served over HTTPS via long,
-randomly generated (UUID) URLs that are not guessable and are only surfaced
-to members of the relevant event inside the App.
+randomly generated (UUID) addresses that cannot be guessed and are only ever
+shown to members of the relevant album (see section 4).
 
 **Albums are deleted automatically, on a timer, whether or not the account
 still exists.** Every album has a limited lifetime, and when it ends the album
@@ -59,22 +67,42 @@ expiring does not affect the user's account or profile.
 Account data is otherwise retained for as long as the account exists. When the
 user deletes their account in-app (Profile, then Delete account), their profile,
 the events they own, their event memberships, and the photos they uploaded are
-all removed within minutes. Cached copies at CDN edges may persist briefly
-before they expire.
+all removed within minutes, and disappear from every album at that moment. Where
+the user had added photos to an album someone else owns, the stored image files
+behind them are erased by a clean-up job that runs daily, which can take up to 72
+hours; until then they are reachable only by someone who already saved that
+photo's direct address. Cached copies at CDN edges may persist briefly before
+they expire.
 
 **SharedShots is a sharing service, not a storage or backup service.** No
 guarantee is made that content will be retained or remain retrievable, and
 the user should keep their own original copies of any photos that matter to
 them.
 
-## 3. Who can see the user's photos
+## 3. Who else processes this data
+
+Nobody is given personal information to use for their own purposes. These
+services process it only in order to run SharedShots:
+
+| Service | What it receives |
+|---|---|
+| **Supabase** (hosted on AWS) | Account info, event data, photos and videos. This is where SharedShots stores everything. |
+| **Expo** | Push notification tokens, and the text of each notification, which can include a display name and an album name. Also contacted to deliver app updates. |
+| **RevenueCat** | Whether a subscription is active or an Event Pass was bought. Never card details. |
+| **Apple**, **Google** | Only when the user chooses Sign in with Apple or Sign in with Google, to confirm who they are. |
+
+## 4. Who can see the user's photos
 
 Photos in an event are visible to every member of that event. Members are
 people who joined using the event's 6-character code (which is only ever
 shared by the user or another member). The host can require approval before
-someone joins, and can remove a member at any time. Photos are **not**
-visible to anyone outside the event, and the developer never publishes
-them.
+someone joins, and can remove a member at any time. The developer never
+publishes photos, and they are not listed, indexed, or searchable anywhere.
+
+Each photo does have its own long, randomly generated web address, which cannot
+be guessed and is only ever shown to members of that album, in the App or in the
+web viewer. That address is itself the key, though: anyone who was given it, or
+saved it while they were a member, can open that photo directly afterwards.
 
 Because the App lets members save photos to their own device, any member of
 an event can download and keep a copy of the photos shared in it. Copies that
@@ -83,7 +111,7 @@ control and remain with that member even if the original is later deleted.
 Users should only share content they are comfortable with the other members
 of their event keeping.
 
-## 4. Permissions the App requests
+## 5. Permissions the App requests
 
 - **Camera:** to take photos and record video in the App.
 - **Microphone:** only while recording a video, to capture its sound. Not used
@@ -101,7 +129,7 @@ then Apps, then SharedShots, then Permissions**. The App does not ask for
 tracking permission, and contains no advertising and no third-party analytics
 SDKs.
 
-## 5. The user's choices
+## 6. The user's choices
 
 The user can:
 
@@ -118,30 +146,52 @@ The user can:
 - **Delete their entire account:** Profile, then Delete account.
   Irreversible.
 
-## 6. Children
+## 7. The user's rights
+
+Wherever the user lives, they can ask for a copy of their data, ask for it to be
+corrected, or ask for it to be deleted, by emailing
+**sharedshots.support@gmail.com**. Most of it can also be done in the App without
+asking anyone (section 6).
+
+**In the EU, the UK and the EEA**, the user has the right of access,
+rectification, erasure, restriction of processing, data portability, and
+objection to processing. The developer processes this data in order to provide
+the service the user asked for, and relies on its legitimate interest in keeping
+that service working and secure for the rest. A user who is unhappy with how a
+request was handled has the right to complain to their local data protection
+authority.
+
+**In California**, the user has the right to know what is collected, to have it
+deleted, to have it corrected, and not to be treated differently for exercising
+any of those rights. SharedShots does not sell or share personal information, and
+never has.
+
+## 8. Children
 
 SharedShots is not directed to children under 13. Anyone who believes a child
 has provided personal information can contact
 **sharedshots.support@gmail.com** and it will be deleted.
 
-## 7. International transfers
+## 9. International transfers
 
-The App can be used worldwide. Data is processed in the backend region
-(currently the EU or US). By using the App the user consents to their data
-being transferred to and processed in those regions.
+SharedShots can be used worldwide. Data is processed in the European Union
+(Frankfurt, Germany). By using SharedShots the user consents to their data being
+transferred to and processed there. If that region ever changes, this Policy will
+be updated to say so.
 
-## 8. Security
+## 10. Security
 
 Data in transit is protected with TLS, and the storage provider applies
 at-rest encryption. No system is perfectly secure, and no guarantee of
 security is made; if a breach affecting the user's account is detected, the
-developer will notify the user by email within a reasonable time.
+developer will notify the user by email without undue delay, and will notify the
+relevant supervisory authority within 72 hours where the law requires it.
 
-## 9. Changes
+## 11. Changes
 
 This Policy may be updated. Material changes will be announced in the App or
 by email. Continued use after a change indicates acceptance.
 
-## 10. Contact
+## 12. Contact
 
 Privacy questions: **sharedshots.support@gmail.com**
