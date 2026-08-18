@@ -1,0 +1,5 @@
+# Design-process source material for the landing page: the design system,
+# the original PNGs the shipped webp/jpg assets were exported from, sketches,
+# mocks and QA captures. Kept next to the site it describes, out of git because
+# it is 21MB of build inputs that nothing served needs.
+.impeccable/
