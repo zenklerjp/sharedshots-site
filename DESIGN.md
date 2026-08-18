@@ -130,7 +130,7 @@ The palette moves between warm photo paper and near-black film, with teal as the
 
 ### Secondary
 
-- **Process Amber** (amber): A minor analog accent for film notation and production details. It should remain rarer than teal.
+- **Process Amber** (amber): A minor analog accent for film notation and production details, including the timing labels on the plan-ahead worksheet. It should remain rarer than teal, and it never marks something pressable - that is teal's job.
 
 ### Neutral
 
@@ -222,6 +222,7 @@ Small rotations between -3 and 4 degrees are allowed on physical objects to crea
 - **Screen frame:** A translucent paper sleeve with an ink hairline, compact padding, and an uppercase teal caption. Staggering and slight rotation are desktop-only.
 - **Contact proof:** A Film Black frame around the contact sheet, with a compact uppercase legend. The actual image remains the visual center.
 - **Dark section:** The host-control section uses Film Black as a full-width field rather than a floating card.
+- **Printed table card:** Fresh Print on a square-cornered plate with an ink hairline, a Paper Plate shadow and a small rotation, standing in for a card a host prints and puts on a table. It carries the brand mark, one line of guest instruction, and the event code at display weight with wide tracking. It shows the code rather than a drawn QR: an unscannable QR printed on the section that tells hosts to print QR codes is the one promise this page must not make, so the QR is named in the copy and generated in the app. Its instruction has to match what the site can actually do - `album.html` reads the code from the query string and offers no field to type one into.
 
 ### Chips
 

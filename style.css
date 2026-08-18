@@ -845,6 +845,165 @@ a:focus-visible {
   margin: 0;
 }
 
+/* Plan-ahead section -------------------------------------------------------
+   Sits between the hero and the process so the practical question a host
+   actually has - "when do I set this up?" - is answered before the feature
+   tour starts.
+
+   The printed table card is the only piece of evidence here, so it is the only
+   thing carrying a shadow and a rotation; the copy column stays flat, per the
+   Evidence Casts the Shadow rule. It is square-cornered because it represents
+   a printed object, not a control. It deliberately shows the CODE and not a
+   QR: a drawn QR would not scan, and printing an unscannable QR on the one
+   section telling hosts to print QR codes is the exact promise this site
+   should not make. The QR is named in the copy and lives in the app, which is
+   where a host actually generates it. The card's instruction mirrors the app's
+   own wording, because album.html reads the code from the URL and has no field
+   to type one into - "enter the code at sharedshots.site" would be false.
+--------------------------------------------------------------------------- */
+
+.prep-section {
+  display: grid;
+  grid-template-columns: minmax(340px, 1.05fr) minmax(300px, 0.72fr);
+  align-items: center;
+  gap: clamp(56px, 7vw, 120px);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(64px, 7vw, 104px) clamp(22px, 5vw, 76px) clamp(28px, 3vw, 44px);
+}
+
+.prep-lede {
+  max-width: 46ch;
+  margin: clamp(26px, 3vw, 34px) 0 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.prep-list {
+  list-style: none;
+  display: grid;
+  margin: clamp(32px, 4vw, 46px) 0 0;
+  padding: 0;
+}
+
+.prep-list li {
+  padding: 20px 0 21px;
+  border-top: 1px solid var(--hairline);
+}
+
+.prep-list li:first-child {
+  border-top-color: var(--ink);
+}
+
+/* Amber, not teal: these are production marks on a worksheet, not actions.
+   Teal stays reserved for things you can press. */
+.prep-when {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--amber);
+  font-family: "Aptos Narrow", "Bahnschrift SemiCondensed", sans-serif;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prep-list h3 {
+  margin: 0 0 7px;
+  font-size: 1.3rem;
+  font-weight: 730;
+  letter-spacing: -0.02em;
+}
+
+.prep-list p {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.prep-print {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  margin: 0;
+}
+
+.prep-card {
+  --card-rotate: -2.5deg;
+  width: min(100%, 330px);
+  display: grid;
+  justify-items: center;
+  padding: clamp(28px, 3vw, 38px) clamp(22px, 2.6vw, 30px);
+  background: var(--paper-bright);
+  border: 1px solid var(--hairline);
+  box-shadow: 14px 22px 52px rgba(46, 36, 24, 0.2);
+  text-align: center;
+  transform: rotate(var(--card-rotate));
+}
+
+.prep-card-mark {
+  color: var(--teal-strong);
+  font-size: 0.68rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prep-card-lead {
+  max-width: 18ch;
+  margin: 14px 0 0;
+  font-size: 1.12rem;
+  font-weight: 730;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.prep-card-label {
+  width: 100%;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
+  font-size: 0.63rem;
+  font-weight: 780;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+/* text-indent cancels the trailing letter-space so the code sits optically
+   centred rather than pushed left by its own tracking. */
+.prep-card-code {
+  margin-top: 8px;
+  font-size: clamp(2rem, 4.4vw, 2.5rem);
+  font-weight: 780;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+}
+
+.prep-card-foot {
+  max-width: 24ch;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.prep-print figcaption {
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: pretty;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .site-nav a:hover,
   .footer-links a:hover {
@@ -966,6 +1125,12 @@ a:focus-visible {
 
   .site-footer > p {
     grid-column: 1 / -1;
+  }
+
+  .prep-section {
+    grid-template-columns: 1fr;
+    gap: 52px;
+    max-width: 720px;
   }
 }
 
@@ -1184,6 +1349,17 @@ a:focus-visible {
 
   .site-footer > p {
     grid-column: auto;
+  }
+
+  .prep-section {
+    gap: 46px;
+    padding: 62px max(var(--mobile-gutter), env(safe-area-inset-right)) 26px max(var(--mobile-gutter), env(safe-area-inset-left));
+  }
+
+  /* Less tilt on a narrow column: at this width the rotated corners are what
+     would push the page into horizontal scroll. */
+  .prep-card {
+    --card-rotate: -1.5deg;
   }
 }
 
