@@ -287,6 +287,35 @@
      on a phone, wrong on a laptop. */
   @media (min-width:560px) { .bar .inner { max-width:340px; } }
 
+  /* ---- consent sheet ----
+     Guests joining from the browser never passed through the app's ConsentGate,
+     so nothing had ever asked them to accept the Terms before their photos were
+     uploaded and shown to everyone in the album. Same four points and the same
+     legal sentence as src/components/ConsentGate.tsx in the app, deliberately:
+     two surfaces disagreeing about what was agreed to is worse than either
+     wording alone. Native <dialog> for the focus trap and Esc handling; Esc and
+     Cancel are NOT consent, so only the agree button records anything. */
+  dialog#consentSheet {
+    border:0; padding:0; margin:auto; max-width:min(440px, calc(100vw - 32px));
+    width:100%; background:var(--raised); color:var(--text);
+    border-radius:22px; box-shadow:var(--shadow);
+  }
+  dialog#consentSheet::backdrop { background:rgba(20,16,28,0.62); }
+  dialog#consentSheet[open] { animation:lbIn 190ms var(--ease); }
+  .consent-body { padding:26px 24px 22px; max-height:min(78dvh, 620px); overflow-y:auto; }
+  .consent-body h2 { font-size:21px; margin:0 0 6px; letter-spacing:-0.4px; }
+  .consent-lede { color:var(--dim); font-size:14.5px; margin:0 0 18px; line-height:1.5; }
+  .consent-points { list-style:none; margin:0 0 18px; padding:0; display:grid; gap:13px; }
+  .consent-points li {
+    display:grid; grid-template-columns:20px 1fr; gap:11px;
+    font-size:14.5px; line-height:1.5; color:var(--text);
+  }
+  .consent-points svg { width:18px; height:18px; margin-top:1px; color:var(--accent-text); }
+  .consent-legal { font-size:12.5px; line-height:1.55; color:var(--dim); margin:0; }
+  .consent-legal a { color:var(--accent-text); text-underline-offset:3px; }
+  .consent-actions { padding:0 24px 24px; }
+  .consent-actions .btn.secondary { margin-top:10px; }
+
   /* ---- lightbox ---- */
   dialog#lightbox {
     border:0; padding:0; margin:0; max-width:100vw; max-height:100dvh;
@@ -501,6 +530,30 @@
   </div>
 </div>
 
+<dialog id="consentSheet" aria-labelledby="consentTitle">
+  <div class="consent-body">
+    <h2 id="consentTitle">Before you join</h2>
+    <p class="consent-lede">SharedShots is a shared photo album. Here is what that means:</p>
+    <ul class="consent-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Photos you add are uploaded so everyone in the album can see them.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Anyone in the album can view, save, and keep their own copy. A copy someone saves stays on their device even if you delete the original.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You confirm you have the right to share what you upload, and only you can delete your own photos.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Albums do not last forever. They are deleted automatically after a while (3 months on the free plan), so save anything you want to keep.</span></li>
+    </ul>
+    <p class="consent-legal">
+      By tapping &ldquo;I agree and join&rdquo; you confirm you have the right to share the photos you upload,
+      you give the other members of this album permission to view, download, and keep them,
+      and you accept our <a href="./terms.html" target="_blank" rel="noopener">Terms of Service</a>
+      and <a href="./privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+      SharedShots is not responsible for how members use content once it has been shared.
+    </p>
+  </div>
+  <div class="consent-actions">
+    <button class="btn" id="consentAgree">I agree and join</button>
+    <button class="btn secondary" id="consentCancel">Cancel</button>
+  </div>
+</dialog>
+
 <dialog id="lightbox" aria-label="Photo viewer">
   <div class="lb-stage">
     <img id="lbImg" alt="" />
@@ -587,6 +640,15 @@ if (!CODE) {
 }
 
 async function tryResume() {
+  // A device that joined before the consent sheet existed still has a valid
+  // session, and this path skips the join button entirely — so without this
+  // check the people the gate is for would be exactly the ones who never see
+  // it. Ask once, and stay on the join view if they decline.
+  if (!hasConsented() && !(await askForConsent())) {
+    hide($('loadingView'));
+    show($('joinView'));
+    return;
+  }
   showLoading();
   try {
     await joinAndLoad();
@@ -617,12 +679,88 @@ $('codeInput').addEventListener('input', () => { $('codeErr').textContent = ''; 
 $('joinBtn').addEventListener('click', doJoin);
 $('nameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') doJoin(); });
 
+/* Bump the version to re-prompt everyone if the terms materially change, the
+   same way consentService does in the app. The timestamp is stored so there is
+   a record of when this device accepted, not just that it did. */
+const CONSENT_KEY = 'ss_consent/v1';
+
+function hasConsented() {
+  try { return !!localStorage.getItem(CONSENT_KEY); } catch { return false; }
+}
+
+function recordConsent() {
+  try {
+    localStorage.setItem(CONSENT_KEY, JSON.stringify({
+      agreed: true,
+      at: new Date().toISOString(),
+      terms: location.origin + '/terms.html',
+      privacy: location.origin + '/privacy.html',
+    }));
+  } catch { /* private mode: gate still did its job this session */ }
+}
+
+/** Resolves true only if the guest presses the agree button. Esc, the backdrop
+    and Cancel all resolve false, because dismissing a dialog is not agreement.
+
+    Consent is recorded in the agree handler itself rather than in the dialog's
+    `close` event. That event was measured NOT firing on close() in the browser
+    this was tested in, which silently produced the worst possible outcome for a
+    consent gate: the sheet closed, the join carried on, and nothing was ever
+    recorded. Hanging a legal record off an event that may not fire is a bad
+    trade when a direct call costs nothing. `cancel` and `close` are still
+    listened to so an Esc dismissal resolves rather than hanging, and settle()
+    is idempotent so whichever arrives first wins.
+
+    Single-flight because showModal() throws InvalidStateError on an already
+    open dialog, and that throw rejects the promise from inside its executor and
+    strands the first call's listeners, leaving the sheet unresponsive to its
+    own buttons. A modal makes the page inert so a guest cannot cause this, but
+    tryResume() and doJoin() both call it. */
+let consentPending = null;
+
+function askForConsent() {
+  if (consentPending) return consentPending;
+  consentPending = new Promise((resolve) => {
+    const sheet = $('consentSheet');
+    let settled = false;
+
+    const settle = (agreed) => {
+      if (settled) return;
+      settled = true;
+      $('consentAgree').removeEventListener('click', onAgree);
+      $('consentCancel').removeEventListener('click', onCancel);
+      sheet.removeEventListener('cancel', onDismiss);
+      sheet.removeEventListener('close', onDismiss);
+      if (agreed) recordConsent();
+      if (sheet.open) sheet.close();
+      consentPending = null;
+      resolve(agreed);
+    };
+
+    const onAgree = () => settle(true);
+    const onCancel = () => settle(false);
+    const onDismiss = () => settle(false);
+
+    $('consentAgree').addEventListener('click', onAgree);
+    $('consentCancel').addEventListener('click', onCancel);
+    sheet.addEventListener('cancel', onDismiss);
+    sheet.addEventListener('close', onDismiss);
+    if (!sheet.open) sheet.showModal();
+  });
+  return consentPending;
+}
+
 async function doJoin() {
   const name = $('nameInput').value.trim();
   $('joinErr').textContent = '';
   if (name.length < 2) {
     $('joinErr').textContent = 'Please enter your name.';
     $('nameInput').focus();
+    return;
+  }
+  // Ask before anything is written or uploaded, and stop here if they decline.
+  if (!hasConsented() && !(await askForConsent())) {
+    $('joinBtn').disabled = false;
     return;
   }
   $('joinBtn').disabled = true;
