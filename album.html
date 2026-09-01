@@ -598,7 +598,9 @@ const BUCKET = 'event-photos';
 // Mirrors MAX_EDGE in the app (src/services/filterService.ts) so web uploads
 // cost the same storage as app uploads.
 const MAX_EDGE = 3024;
-// Free albums show their first N photos to everyone (same rule as the app).
+// The free view window, mirroring FREE_MAX_PHOTOS_PER_EVENT in the app's
+// src/config/plans.ts. It is the SIZE of the window only; whether the window
+// applies at all is decided server-side, never here.
 const FREE_WINDOW = 50;
 
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -615,6 +617,25 @@ const CODE = normalizeCode(params.get('c') || params.get('code'));
 
 let eventRow = null;
 let me = null;
+/**
+ * The viewer's server-decided view entitlement, from my_event_entitlement
+ * (sql/grandfathering.sql) — the SAME rpc the app calls via entitlementService.
+ *
+ * This page used to decide visibility itself, from `events.is_unlocked` alone.
+ * That column is set only by an Event Pass redemption, so it was blind to the
+ * two other ways an album is fully open: the HOST being premium now, and the
+ * VIEWER being premium now. A premium host's album holds 150 photos and every
+ * guest saw the first 50 of them, in the browser only, while the app showed all
+ * 150 correctly. Re-deriving a server rule from one column is what broke it, so
+ * this asks the server instead.
+ *
+ * Defaults to 'free' because a failed lookup must never open an album wider
+ * than it should be.
+ */
+let entitlement = { mode: 'free', cutoff: null };
+/** In-flight consent request, so askForConsent() is single-flight. Must be
+    initialised before the boot block runs — see askForConsent(). */
+let consentPending = null;
 /** Rendered photos in grid order — the lightbox pages through this. */
 let photos = [];
 /** Photo ids already in the DOM, so a poll appends instead of rebuilding. */
@@ -715,9 +736,13 @@ function recordConsent() {
     open dialog, and that throw rejects the promise from inside its executor and
     strands the first call's listeners, leaving the sheet unresponsive to its
     own buttons. A modal makes the page inert so a guest cannot cause this, but
-    tryResume() and doJoin() both call it. */
-let consentPending = null;
+    tryResume() and doJoin() both call it.
 
+    Declared with the other module state at the top, NOT here: the boot block
+    calls tryResume() -> askForConsent() before this point in the file, and a
+    `let` down here leaves it in the temporal dead zone, so a returning guest
+    with a session crashed with "Cannot access 'consentPending' before
+    initialization" and never got the sheet or the album. */
 function askForConsent() {
   if (consentPending) return consentPending;
   consentPending = new Promise((resolve) => {
@@ -799,6 +824,7 @@ async function joinAndLoad() {
   if (evErr) throw evErr;
   eventRow = ev;
 
+  await loadEntitlement();
   renderHeader();
   await loadPhotos();
   hide($('loadingView'));
@@ -808,7 +834,14 @@ async function joinAndLoad() {
   document.body.classList.add('in-album');
   document.title = `${eventRow.name || 'Album'} · SharedShots`;
   // Light polling so other people's uploads appear without a manual refresh.
-  setInterval(() => { loadPhotos().catch(() => {}); }, 20000);
+  // refreshEvent() rides along because it re-asks for the entitlement, so an
+  // Event Pass bought while guests are already looking opens the album for them
+  // within a poll rather than only for whoever loads the page next.
+  setInterval(() => {
+    refreshEvent()
+      .then(() => loadPhotos())
+      .catch(() => {});
+  }, 20000);
 }
 
 // ---------------------------------------------------------------- render
@@ -821,23 +854,60 @@ function renderHeader() {
 
   const notice = $('albumNotice');
   notice.innerHTML = '';
-  if (!eventRow.is_unlocked && (eventRow.photo_count || 0) > FREE_WINDOW) {
+  if (entitlement.mode !== 'all' && (eventRow.photo_count || 0) > FREE_WINDOW) {
     notice.innerHTML =
       `<div class="notice">Showing the first ${FREE_WINDOW} photos. ` +
       `The host can open the whole album for everyone with an Event Pass.</div>`;
   }
 }
 
+async function loadEntitlement() {
+  try {
+    const { data, error } = await sb.rpc('my_event_entitlement', {
+      p_event_id: eventRow.id,
+    });
+    if (error || !data) return;
+    const mode = data.mode === 'all' || data.mode === 'grandfathered'
+      ? data.mode
+      : 'free';
+    entitlement = { mode, cutoff: data.cutoff ?? null };
+  } catch {
+    /* leave the safe default in place */
+  }
+}
+
+/**
+ * Mirrors isItemVisible() in the app's src/config/viewWindow.ts.
+ *
+ * 'all' sees everything. Otherwise a viewer keeps the free window, anything
+ * they uploaded themselves, and — if grandfathered — everything created on or
+ * before their cutoff. Rows arrive oldest-first, so the free window is the
+ * first N, which is the same set the app takes as the last N of its
+ * newest-first list.
+ */
+function visibleTo(rows) {
+  if (entitlement.mode === 'all') return rows;
+  const cutoffMs = entitlement.mode === 'grandfathered' && entitlement.cutoff
+    ? Date.parse(entitlement.cutoff)
+    : 0;
+  const inWindow = new Set(rows.slice(0, FREE_WINDOW).map((r) => r.id));
+  return rows.filter((r) =>
+    inWindow.has(r.id) ||
+    (me && r.uploaded_by === me.id) ||
+    (cutoffMs > 0 && Date.parse(r.created_at) <= cutoffMs));
+}
+
 async function loadPhotos() {
-  let q = sb.from('photos')
-    .select('id, download_url, thumbnail_url, uploader_name, created_at, media_type')
+  // No query limit: the window is a product rule about who may SEE an item, and
+  // it has to account for the viewer's own uploads and their grandfather cutoff.
+  // A `.limit()` cannot express either, and silently hid a guest's own photos.
+  const { data, error } = await sb.from('photos')
+    .select('id, download_url, thumbnail_url, uploader_name, created_at, media_type, uploaded_by')
     .eq('event_id', eventRow.id)
     .order('created_at', { ascending: true });
-  if (!eventRow.is_unlocked) q = q.limit(FREE_WINDOW);
-  const { data, error } = await q;
   if (error) throw error;
 
-  const rows = data || [];
+  const rows = visibleTo(data || []);
   photos = rows;
 
   // Append only what's new. The old code rebuilt the whole grid every 20s,
@@ -1095,7 +1165,13 @@ async function refreshEvent() {
   const { data } = await sb.from('events')
     .select('id, name, is_unlocked, photo_count, member_ids, expires_at')
     .eq('id', eventRow.id).single();
-  if (data) { eventRow = data; renderHeader(); }
+  if (data) {
+    eventRow = data;
+    // Re-ask on every refresh so a pass bought while guests are already looking
+    // opens the album for them, rather than only for whoever loads next.
+    await loadEntitlement();
+    renderHeader();
+  }
 }
 
 // ---------------------------------------------------------------- helpers
