@@ -85,3 +85,47 @@ test('the free window is the OLDEST N, matching the app', () => {
   assert.equal(out[0].id, 'p0');
   assert.equal(out.at(-1).id, 'p49');
 });
+
+// ---------------------------------------------------------------------------
+// The three host types, which is what a guest's view actually turns on.
+// mode comes from my_event_entitlement: 'all' when a pass is on the album, OR
+// the host is premium now, OR the viewer is premium now. Only a genuinely free
+// album falls through to the window — and a free album can hold just 50, so
+// its guests still see every photo it has.
+// ---------------------------------------------------------------------------
+
+test('FREE host: album holds 50, guest sees all 50', () => {
+  const v = makeVisibleTo({ mode: 'free', cutoff: null }, { id: 'guest' });
+  assert.equal(v(rows(50)).length, 50, 'a free album is never truncated, it is only ever full');
+});
+
+test('PREMIUM host: album holds 150, guest sees all 150', () => {
+  const v = makeVisibleTo({ mode: 'all', cutoff: null }, { id: 'guest' });
+  assert.equal(v(rows(150)).length, 150);
+});
+
+test('EVENT PASS host: album holds whatever the pass bought, guest sees all of it', () => {
+  const v = makeVisibleTo({ mode: 'all', cutoff: null }, { id: 'guest' });
+  for (const size of [150, 350, 600, 1000, 1500, 3000]) {
+    assert.equal(v(rows(size)).length, size, `pass sized ${size} must show ${size}`);
+  }
+});
+
+test('a free guest and a premium guest see the same album identically', () => {
+  // Capacity belongs to the ALBUM, not the person: whoever is looking, an open
+  // album shows everything it holds.
+  const free = makeVisibleTo({ mode: 'all', cutoff: null }, { id: 'freeGuest' });
+  const prem = makeVisibleTo({ mode: 'all', cutoff: null }, { id: 'premGuest' });
+  assert.equal(free(rows(150)).length, prem(rows(150)).length);
+});
+
+test('the photo fetch is paged, and does not stop on a short page', () => {
+  // PostgREST truncates at max_rows (1000 on this project) with no error. A
+  // single unpaged request returned 1000 of a 3000-photo pass album.
+  assert.match(html, /\.range\(from, from \+ PAGE - 1\)/,
+    'photos must be fetched with .range() paging');
+  assert.match(html, /if \(page\.length === 0\) break;/,
+    'paging must stop on an EMPTY page, not a short one');
+  assert.ok(!/page\.length < PAGE/.test(html),
+    'stopping on a short page silently returns only the first page if max_rows < PAGE');
+});

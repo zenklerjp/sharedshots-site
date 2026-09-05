@@ -901,13 +901,30 @@ async function loadPhotos() {
   // No query limit: the window is a product rule about who may SEE an item, and
   // it has to account for the viewer's own uploads and their grandfather cutoff.
   // A `.limit()` cannot express either, and silently hid a guest's own photos.
-  const { data, error } = await sb.from('photos')
-    .select('id, download_url, thumbnail_url, uploader_name, created_at, media_type, uploaded_by')
-    .eq('event_id', eventRow.id)
-    .order('created_at', { ascending: true });
-  if (error) throw error;
+  //
+  // Paged because PostgREST truncates every response at the project's max_rows
+  // (1000 here) with no error and no flag. The biggest Event Pass sells 3000
+  // photos, so a single request returned a third of a full album and hid the
+  // rest from everyone. Stops on an EMPTY page and advances by rows actually
+  // returned: a SHORT page is not a safe end signal, because if max_rows ever
+  // drops below PAGE every page is short and the loop would quietly stop after
+  // the first one.
+  const PAGE = 500;
+  const all = [];
+  for (let from = 0; ; ) {
+    const { data, error } = await sb.from('photos')
+      .select('id, download_url, thumbnail_url, uploader_name, created_at, media_type, uploaded_by')
+      .eq('event_id', eventRow.id)
+      .order('created_at', { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) throw error;
+    const page = data || [];
+    if (page.length === 0) break;
+    all.push(...page);
+    from += page.length;
+  }
 
-  const rows = visibleTo(data || []);
+  const rows = visibleTo(all);
   photos = rows;
 
   // Append only what's new. The old code rebuilt the whole grid every 20s,
